@@ -1,8 +1,8 @@
-import { draw } from "sketch";
-import { Vector2d } from "vector2d";
+import { draw } from "./sketch";
+import { Vector2d } from "./vector2d";
 
 export class Log {
-  constructor(public x, public y) {}
+  constructor(public x, public y) { }
 
   update(heroMovement: Vector2d) {
     this.x = this.x - heroMovement.x;
@@ -14,7 +14,7 @@ export class Log {
   }
 }
 export class Circle {
-  constructor(public x, public y) {}
+  constructor(public x, public y) { }
 
   update(heroMovement) {
     this.x = this.x - heroMovement;
@@ -26,7 +26,7 @@ export class Circle {
 }
 
 export class Hole {
-  constructor(public x, public y) {}
+  constructor(public x, public y) { }
   update(heroMovement) {
     this.x = this.x - heroMovement;
   }

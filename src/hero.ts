@@ -1,5 +1,5 @@
-import { Ground, Surface } from "ground";
-import { Vector2d } from "vector2d";
+import { Ground, Surface } from "./ground";
+import { Vector2d } from "./vector2d";
 
 export class Hero {
   restart(surfaces: Ground[]) {

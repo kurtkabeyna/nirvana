@@ -1,4 +1,4 @@
-import { Vector2d } from "vector2d";
+import { Vector2d } from "./vector2d";
 
 export class House {
   initialX: number;

@@ -4,8 +4,8 @@ import { Cloud } from "./cloud";
 import { canvasWidth, canvasHeight } from "./consts";
 import { House } from "./house";
 import { Hero } from "./hero";
-import { Circle, Log, Hole } from "items";
-import { Ground, isBelowSurface, Surface } from "ground";
+import { Circle, Log, Hole } from "./items";
+import { Ground, isBelowSurface, Surface } from "./ground";
 
 let log = new Log(700, 200);
 let house = new House(200, 160);
