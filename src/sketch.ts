@@ -53,6 +53,7 @@ function draw() {
   log.draw();
   log.update(dx);
   circle.update(dx);
+
   circle.drawCircle();
   hole.drawHole();
   hole.update(dx);
