@@ -10,7 +10,7 @@ export class Log {
 
   draw() {
     fill("brown");
-    rect(this.x, this.y, 100, 200);
+    rect(this.x, this.y, 10, 100);
   }
 }
 export class Circle {

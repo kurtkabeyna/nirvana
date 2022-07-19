@@ -23,42 +23,10 @@ function setup() {
   for (let i = 0; i < 20; ++i) {
     surfaces.push(new Ground(x, width));
     x += width + holeWidth;
-  }
-
-  // x,y,width
-}
-/**
- * Hero Should not be able to go through
- * If hero collides first obstacle he can't go thtough
- */
-
-/**
- * 1. collect all surfaces
- * 2. pass all surfaces to hero
- * 3. Check if hero stands or not stands on the ground:
- *  * hero.y - surface.y == hero.height
- * 4. Add y speed if hero is not standing
- * */
-
-function draw() {
-  background(0, 206, 209);
-  hero.draw();
-  const dx = hero.calculateSpeed(surfaces);
-  house.update(dx);
-  house.draw();
-  cloud.move();
-  cloud.draw();
+    cloud.move();
   cloud.dropRaindrops();
-  cloud.update(dx);
-  log.draw();
-  log.update(dx);
-  circle.update(dx);
   circle.drawCircle();
-  hole.drawHole();
-  hole.update(dx);
 
-  surfaces.forEach((surface) => surface.draw());
-  surfaces.forEach((surface) => surface.update(dx));
   let isUnderAllSurfaces = true;
 
   surfaces.forEach((surface) => {
@@ -71,14 +39,49 @@ function draw() {
     house.restart(House);
     cloud.restart();
   }
-  /* TODO
-  - hero should not go through surface
-  - restart the game if hero falls
-  */
-  // check this function for all surfaces
-  // if below: restart game
-  // hero.isFalling();
+  }
+
+  
 }
+class Location1 {
+  
+  draw() {
+    background(0, 206, 209);
+    hero.draw();
+    house.draw();
+    hole.drawHole();
+    log.draw();
+    cloud.draw();
+    surfaces.forEach((surface) => surface.draw());
+  }
+  update() {
+    const dx = hero.calculateSpeed(surfaces);
+    house.update(dx);
+    cloud.update(dx);
+    log.update(dx);
+    circle.update(dx);
+    hole.update(dx);
+    surfaces.forEach((surface) => surface.update(dx));
+  }
+}
+  class Location2 {
+    draw() {
+
+    }
+    update() {
+
+    }
+  }
+  
+  const locations = [new Location1(), new Location2()]
+  let currentLocation = 0;
+
+function draw(){
+  const move = locations[currentLocation].update()
+}
+  
+ 
+
 
 // It will be explained later.
 export { setup, draw };
