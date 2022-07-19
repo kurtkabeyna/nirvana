@@ -1,5 +1,6 @@
 import { Vector2d } from "./vector2d";
 import { canvasHeight, canvasWidth } from "./consts";
+
 import { Raindrop } from "./raindrop";
 
 export class Cloud {
