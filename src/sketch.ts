@@ -46,7 +46,9 @@ function draw() {
   const dx = hero.calculateSpeed(surfaces);
   house.update(dx);
   house.draw();
+
   cloud.move();
+
   cloud.draw();
   cloud.dropRaindrops();
   cloud.update(dx);

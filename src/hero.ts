@@ -3,6 +3,8 @@ import { Vector2d } from "./vector2d";
 
 export class Hero {
   restart(surfaces: Ground[]) {
+
+
     surfaces.forEach((surface) => {
       surface.x = surface.initialX;
       surface.y = surface.initialY;
