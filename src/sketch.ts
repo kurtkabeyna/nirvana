@@ -6,6 +6,8 @@ import { House } from "./house";
 import { Hero } from "./hero";
 import { Circle, Log, Hole } from "./items";
 import { Ground, isBelowSurface, Surface } from "./ground";
+import { Loc2, Coins} from "./locations2";
+
 
 let log = new Log(700, 200);
 let house = new House(200, 160);
@@ -14,7 +16,9 @@ let hero = new Hero(50, 280);
 let circle = new Circle(900, 75);
 let hole = new Hole(1000, 300);
 let surfaces: Ground[] = [];
-
+let loc2 = new Loc2(0, 0);
+let coins = new Coins(30, 90);
+let built: Loc2[] = [];
 function setup() {
   createCanvas(canvasWidth, canvasHeight);
   let width = random(100, 500);
@@ -38,6 +42,8 @@ function setup() {
     hero.restart(surfaces);
     house.restart(House);
     cloud.restart();
+    loc2.restart();
+    coins.restart();
   }
   }
 
@@ -66,9 +72,15 @@ class Location1 {
 }
   class Location2 {
     draw() {
+      background(0, 206, 209);
+      loc2.drawLoc2();
+      coins.drawCoins();
 
     }
     update() {
+      const dx = hero.calculateSpeed(surfaces);
+      loc2.update(dx);
+      coins.update(dx);
 
     }
   }
@@ -78,6 +90,7 @@ class Location1 {
 
 function draw(){
   const move = locations[currentLocation].update()
+  locations[currentLocation].draw();
 }
   
  

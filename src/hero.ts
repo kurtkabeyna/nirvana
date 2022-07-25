@@ -1,5 +1,6 @@
 import { Ground, Surface } from "./ground";
 import { Vector2d } from "./vector2d";
+import { Loc2 } from "./locations2";
 
 export class Hero {
   restart(surfaces: Ground[]) {
@@ -32,7 +33,16 @@ export class Hero {
     }
     return false;
   }
+  isStanding2(built: Loc2[]) {
+    for (let i = 0; i < built.length; i++) {
+      const platform = built[i];
 
+      if (this.x > platform.x && this.x < platform.x + platform.width) {
+        return true;
+      }
+    }
+    return false;
+  }
   calculateSpeed(surfaces: Ground[]) {
     let speed = new Vector2d(0, 0);
     const fx = 2;
