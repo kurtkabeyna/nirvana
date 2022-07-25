@@ -1,5 +1,5 @@
 import { Vector2d } from "./vector2d";
-export class Loc2 {
+export class Location2 {
   restart() {
     this.x = this.initialX;
     this.y = this.initialY;
@@ -10,12 +10,11 @@ export class Loc2 {
     this.initialX = this.x;
     this.initialY = this.y;
   }
-  update(heroMovement: Vector2d) {
-    this.x = this.x - heroMovement.x;
-    this.y = this.y - heroMovement.y;
+  update() {
+   return 0;
   }
 
-  drawLoc2() {
+  draw() {
     fill("#291C16");
     // +500//
     rect(this.x + 500, this.y, 1208.42, 12.59);
@@ -68,6 +67,7 @@ export class Coins {
     this.x = this.x - heroMovement.x;
     this.y = this.y - heroMovement.y;
   }
+  
 
   drawCoins() {
     fill(224, 208, 25);

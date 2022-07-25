@@ -10,6 +10,8 @@ export class Hero {
     });
   }
 
+  public traveledDistance = 0;
+
   direction;
   height = 50;
   constructor(public x, public y) {
@@ -64,12 +66,12 @@ export class Hero {
     }
     if (keyIsDown(RIGHT_ARROW)) {
       speed.x = fx * this.direction;
-      return speed;
     }
     if (keyIsDown(LEFT_ARROW)) {
       speed.x = fx * -this.direction;
-      return speed;
     }
+
+    this.traveledDistance += speed.x;
     return speed;
   }
 
