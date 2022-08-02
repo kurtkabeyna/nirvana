@@ -1,3 +1,4 @@
+import { hero } from "../Some demo changes/src/sketch";
 import { Vector2d } from "./vector2d";
 export class Location2 {
   restart() {
@@ -10,13 +11,15 @@ export class Location2 {
     this.initialX = this.x;
     this.initialY = this.y;
   }
-  update() {
-    
-   return 0;
-  
+
+  update(heroSpeed: Vector2d) {
+
+    return 0;
+
   }
 
   draw() {
+    background(0, 209, 182)
     fill("#291C16");
     // +500//
     rect(this.x + 500, this.y, 1208.42, 12.59);
@@ -36,6 +39,7 @@ export class Location2 {
     rect(this.x + 1258.42, this.y + 160, 190, 12.59);
     rect(this.x + 1458.42, this.y + 230, 190, 12.59);
     rect(this.x + 1058.42, this.y + 230, 190, 12.59);
+    hero.draw();
   }
 }
 export interface Built {
@@ -70,7 +74,7 @@ export class Coins {
     this.x = this.x - heroMovement.x;
     this.y = this.y - heroMovement.y;
   }
-  
+
 
   drawCoins() {
     fill(224, 208, 25);

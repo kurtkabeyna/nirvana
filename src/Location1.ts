@@ -1,3 +1,4 @@
+import { Vector2d } from "./vector2d";
 import { hero, house, hole, log, cloud, surfaces, circle } from "./sketch";
 
 export class Location1 {
@@ -12,8 +13,7 @@ export class Location1 {
         surfaces.forEach((surface) => surface.draw());
     }
 
-    update(): number {
-        const dx = hero.calculateSpeed(surfaces);
+    update(dx: Vector2d): number {
         house.update(dx);
         cloud.update(dx);
         log.update(dx);
