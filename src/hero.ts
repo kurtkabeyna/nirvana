@@ -1,24 +1,23 @@
 import { Ground, Surface } from "./ground";
 import { Vector2d } from "./vector2d";
+import { Location2 } from "./Location2";
 
 export class Hero {
   restart(surfaces: Ground[]) {
-
-
     surfaces.forEach((surface) => {
       surface.x = surface.initialX;
       surface.y = surface.initialY;
     });
   }
 
+  public traveledDistance = 0;
+
   direction;
   height = 50;
   constructor(public x, public y) {
     this.direction = 1;
   }
-  /** TODO: make hero take ys into account
-   * hero should fall always, except situations when its y is equal to some sirface y
-   */
+  
 
   isStanding(surfaces: Ground[]) {
     for (let i = 0; i < surfaces.length; i++) {
@@ -34,7 +33,16 @@ export class Hero {
     }
     return false;
   }
+  isStanding2(built: Loc2[]) {
+    for (let i = 0; i < built.length; i++) {
+      const platform = built[i];
 
+      if (this.x > platform.x && this.x < platform.x + platform.width) {
+        return true;
+      }
+    }
+    return false;
+  }
   calculateSpeed(surfaces: Ground[]) {
     let speed = new Vector2d(0, 0);
     const fx = 2;
@@ -56,12 +64,12 @@ export class Hero {
     }
     if (keyIsDown(RIGHT_ARROW)) {
       speed.x = fx * this.direction;
-      return speed;
     }
     if (keyIsDown(LEFT_ARROW)) {
       speed.x = fx * -this.direction;
-      return speed;
     }
+
+    this.traveledDistance += speed.x;
     return speed;
   }
 

@@ -1,8 +1,5 @@
 import { Vector2d } from "./vector2d";
 
-
-
-
 export class Ground {
   initialX: number;
   initialY: number;

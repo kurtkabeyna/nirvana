@@ -6,14 +6,19 @@ import { House } from "./house";
 import { Hero } from "./hero";
 import { Circle, Log, Hole } from "./items";
 import { Ground, isBelowSurface, Surface } from "./ground";
+import { Location1 } from "./Location1";
+import { Coins, Location2 } from "./Location2";
 
-let log = new Log(700, 200);
-let house = new House(200, 160);
-let cloud = new Cloud(20, 30);
-let hero = new Hero(50, 280);
-let circle = new Circle(900, 75);
-let hole = new Hole(1000, 300);
-let surfaces: Ground[] = [];
+export let log = new Log(700, 200);
+export let house = new House(200, 160);
+export let cloud = new Cloud(20, 30);
+export let hero = new Hero(50, 280);
+export let circle = new Circle(900, 75);
+export let hole = new Hole(1000, 300);
+export let surfaces: Ground[] = [];
+export let location2 = new Location2(0,0);
+let coins = new Coins(30, 90);
+
 
 function setup() {
   createCanvas(canvasWidth, canvasHeight);
@@ -23,65 +28,40 @@ function setup() {
   for (let i = 0; i < 20; ++i) {
     surfaces.push(new Ground(x, width));
     x += width + holeWidth;
+    cloud.move();
+    cloud.dropRaindrops();
+    circle.drawCircle();
+
+    let isUnderAllSurfaces = true;
+
+    surfaces.forEach((surface) => {
+      if (!isBelowSurface(surface, hero)) {
+        isUnderAllSurfaces = false;
+      }
+    });
+    if (isUnderAllSurfaces) {
+      hero.restart(surfaces);
+      house.restart(House);
+      cloud.restart();
+      location2.restart();
+    }
   }
 
-  // x,y,width
 }
-/**
- * Hero Should not be able to go through
- * If hero collides first obstacle he can't go thtough
- */
+const locations = [new Location1(), new Location2(-500,0)]
+let currentLocation = 0;
 
-/**
- * 1. collect all surfaces
- * 2. pass all surfaces to hero
- * 3. Check if hero stands or not stands on the ground:
- *  * hero.y - surface.y == hero.height
- * 4. Add y speed if hero is not standing
- * */
 
 function draw() {
-  background(0, 206, 209);
-  hero.draw();
+  const locationChange = locations[currentLocation].update()
+  currentLocation += locationChange;
+  locations[currentLocation].draw();
   const dx = hero.calculateSpeed(surfaces);
-  house.update(dx);
-  house.draw();
-
-  cloud.move();
-
-  cloud.draw();
-  cloud.dropRaindrops();
-  cloud.update(dx);
-  log.draw();
-  log.update(dx);
-  circle.update(dx);
-
-  circle.drawCircle();
-  hole.drawHole();
-  hole.update(dx);
-
-  surfaces.forEach((surface) => surface.draw());
-  surfaces.forEach((surface) => surface.update(dx));
-  let isUnderAllSurfaces = true;
-
-  surfaces.forEach((surface) => {
-    if (!isBelowSurface(surface, hero)) {
-      isUnderAllSurfaces = false;
-    }
-  });
-  if (isUnderAllSurfaces) {
-    hero.restart(surfaces);
-    house.restart(House);
-    cloud.restart();
-  }
-  /* TODO
-  - hero should not go through surface
-  - restart the game if hero falls
-  */
-  // check this function for all surfaces
-  // if below: restart game
-  // hero.isFalling();
+  location2.update(dx);
 }
+
+
+
 
 // It will be explained later.
 export { setup, draw };

@@ -3,9 +3,6 @@ import { Vector2d } from "./vector2d";
 export class House {
   initialX: number;
   initialY: number;
-
-
-
   restart(tHouse) {
     this.x = this.initialX;
     this.y = this.initialY;
