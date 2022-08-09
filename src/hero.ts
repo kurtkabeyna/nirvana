@@ -17,7 +17,6 @@ export class Hero {
   constructor(public x, public y) {
     this.direction = 1;
   }
-  
 
   isStanding(surfaces: Ground[]) {
     for (let i = 0; i < surfaces.length; i++) {
@@ -33,7 +32,7 @@ export class Hero {
     }
     return false;
   }
-  isStanding2(built: Loc2[]) {
+  isStanding2(built: Location2[]) {
     for (let i = 0; i < built.length; i++) {
       const platform = built[i];
 

@@ -24,7 +24,7 @@ export class Cloud {
         const dropOutsideCanvas = this.drops.filter(
           (d) => d.y > canvasHeight || d.x > canvasWidth
         )[0];
-        if (dropOutsideCanvas == undefined) {
+        if (dropOutsideCanvas === undefined) {
           continue;
         }
         dropOutsideCanvas.x = this.x + i * 5;

@@ -1,6 +1,8 @@
-import { hero } from "../Some demo changes/src/sketch";
+import { hero, location2, surfaces, coins, landscape } from "./sketch";
 import { Vector2d } from "./vector2d";
+
 export class Location2 {
+  width: number;
   restart() {
     this.x = this.initialX;
     this.y = this.initialY;
@@ -13,13 +15,14 @@ export class Location2 {
   }
 
   update(heroSpeed: Vector2d) {
-
+    this.x = this.x - heroSpeed.x;
+    this.y = this.y - heroSpeed.y;
+    landscape.update();
     return 0;
-
   }
 
   draw() {
-    background(0, 209, 182)
+    background(0, 209, 182);
     fill("#291C16");
     // +500//
     rect(this.x + 500, this.y, 1208.42, 12.59);
@@ -40,6 +43,7 @@ export class Location2 {
     rect(this.x + 1458.42, this.y + 230, 190, 12.59);
     rect(this.x + 1058.42, this.y + 230, 190, 12.59);
     hero.draw();
+    landscape.draw();
   }
 }
 export interface Built {
@@ -51,6 +55,16 @@ export interface Built {
 interface Hero {
   x: number;
   y: number;
+}
+
+export class Platform {
+  initialX: number;
+  initialY: number;
+  y: number;
+  constructor(public x, public width) {
+    this.initialX = this.x;
+    this.initialY = this.y;
+  }
 }
 export function isBelowPlatform(platform: Built, item: Hero) {
   if (platform.y + platform.height < item.y) {
@@ -70,11 +84,10 @@ export class Coins {
     this.initialY = this.y;
   }
 
-  update(heroMovement: Vector2d) {
-    this.x = this.x - heroMovement.x;
-    this.y = this.y - heroMovement.y;
+  update(heroSpeed: Vector2d) {
+    this.x = this.x - heroSpeed.x;
+    this.y = this.y - heroSpeed.y;
   }
-
 
   drawCoins() {
     fill(224, 208, 25);

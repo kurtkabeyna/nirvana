@@ -8,6 +8,7 @@ import { Circle, Log, Hole } from "./items";
 import { Ground, isBelowSurface, Surface } from "./ground";
 import { Location1 } from "./Location1";
 import { Coins, Location2 } from "./Location2";
+import { Landscape } from "./landscape";
 
 export let log = new Log(700, 200);
 export let house = new House(200, 160);
@@ -17,8 +18,9 @@ export let circle = new Circle(900, 75);
 export let hole = new Hole(1000, 300);
 export let surfaces: Ground[] = [];
 export let location2 = new Location2(0, 0);
-let coins = new Coins(30, 90);
-
+export let platform: Location[] = [];
+export let coins = new Coins(30, 90);
+export let landscape = new Landscape(0, 300);
 
 function setup() {
   createCanvas(canvasWidth, canvasHeight);
@@ -46,21 +48,17 @@ function setup() {
       location2.restart();
     }
   }
-
 }
-const locations = [new Location1(), new Location2(-500, 0)]
+const locations = [new Location1(), new Location2(-500, 0)];
 let currentLocation = 0;
 
-
 function draw() {
+  coins.drawCoins();
   const dx = hero.calculateSpeed(surfaces);
-  const locationChange = locations[currentLocation].update(dx)
+  const locationChange = locations[currentLocation].update(dx);
   currentLocation += locationChange;
   locations[currentLocation].draw();
 }
-
-
-
 
 // It will be explained later.
 export { setup, draw };
