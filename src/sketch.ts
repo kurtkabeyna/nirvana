@@ -7,7 +7,7 @@ import { Hero } from "./hero";
 import { Circle, Log, Hole } from "./items";
 import { Ground, isBelowSurface, Surface } from "./ground";
 import { Location1 } from "./Location1";
-import { Coins, Location2 } from "./Location2";
+import { Coins, Location2, Platform,isBelowPlatform } from "./Location2";
 import { Landscape } from "./landscape";
 
 export let log = new Log(700, 200);
@@ -18,7 +18,7 @@ export let circle = new Circle(900, 75);
 export let hole = new Hole(1000, 300);
 export let surfaces: Ground[] = [];
 export let location2 = new Location2(0, 0);
-export let platform: Location[] = [];
+export let platform: Platform[] = [];
 export let coins = new Coins(30, 90);
 export let landscape = new Landscape(0, 300);
 
@@ -35,7 +35,12 @@ function setup() {
     circle.drawCircle();
 
     let isUnderAllSurfaces = true;
-
+    let isUnderAllPlatforms = true;
+    platform.forEach(platforma)=>{
+      if(!isBellowPlatform(platform , hero)){
+        isUnderAllPlatforms = false;
+      }
+    }
     surfaces.forEach((surface) => {
       if (!isBelowSurface(surface, hero)) {
         isUnderAllSurfaces = false;
@@ -62,3 +67,7 @@ function draw() {
 
 // It will be explained later.
 export { setup, draw };
+  function isBellowPlatform(platforma: any, hero: Hero) {
+    throw new Error("Function not implemented.");
+  }
+

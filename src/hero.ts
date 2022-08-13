@@ -1,6 +1,7 @@
 import { Ground, Surface } from "./ground";
 import { Vector2d } from "./vector2d";
-import { Location2 } from "./Location2";
+import { Location2, Platform } from "./Location2";
+import { platform } from "sketch";
 
 export class Hero {
   restart(surfaces: Ground[]) {
@@ -32,11 +33,36 @@ export class Hero {
     }
     return false;
   }
-  isStanding2(built: Location2[]) {
-    for (let i = 0; i < built.length; i++) {
-      const platform = built[i];
-
-      if (this.x > platform.x && this.x < platform.x + platform.width) {
+  isStanding2(platform:Platform[]) {
+    for (let i = 0; i < platform.length; i++) {
+      const platforma=platform[i];
+         if (this.x > platforma.x && this.x < platforma.x + platforma.w
+          && this.y === platforma.y - 20) {
+        return true;
+      }
+    }
+    return false;
+  }
+  calculateSpeed2(platform:Platform[]) {
+    let speed = new Vector2d(0, 0);
+    const fx = 2;
+    if (!this.isStanding2(platform)) {
+      speed.y = 2;
+    }
+    if (this.isInSurface2(platform)) {
+      speed.x = 0;
+      speed.y = 2;
+      return speed;
+    }
+  }
+  isInSurface2(platform: Platform[]): boolean {
+    for (let i = 0; i < platform.length; i++) {
+      const platforma = platform[i];
+      if (
+        this.x > platforma.x &&
+        this.x < platforma.x + platforma.w &&
+        this.y > platforma.y
+      ) {
         return true;
       }
     }
