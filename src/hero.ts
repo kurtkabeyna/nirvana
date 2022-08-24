@@ -19,7 +19,7 @@ export class Hero {
     this.direction = 1;
   }
 
-  isStanding(surfaces: Ground[]) {
+  isStanding(surfaces: Surface[]) {
     for (let i = 0; i < surfaces.length; i++) {
       const surface = surfaces[i];
       // console.log(this.y - surface.y);

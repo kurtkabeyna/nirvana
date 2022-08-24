@@ -1,3 +1,4 @@
+import { Surface } from "./ground";
 import { hero, location2, surfaces, coins, landscape } from "./sketch";
 import { Vector2d } from "./vector2d";
 
@@ -52,18 +53,13 @@ export class Location2 {
     landscape.draw();
   }
 }
-export interface Built {
-  height: number;
-  x: number;
-  y: number;
-  width: number;
-}
+
 interface Hero {
   x: number;
   y: number;
 }
 
-export class Platform {
+export class Platform implements Surface {
   initialX: number;
   initialY: number;
   update(heroMovement:Vector2d){
@@ -72,28 +68,24 @@ export class Platform {
 
 
   }
-  constructor(public x,public y, public w,public h) {
+  constructor(public x,public y, public width,public height) {
     this.initialX = this.x;
     this.initialY = this.y;
     
 
   }
   draw(){
-    rect(this.x, this.y,this.w,this.h)
+    rect(this.x, this.y,this.width,this.height)
   }
 }
-export interface Platforma {
-  x: number;
-  y: number;
-  h: number;
-}
+
 
 interface Hero {
   x: number;
   y: number;
 }
 export function isBelowPlatform(platforma: Platform, item: Hero) {
-  if (platforma.y + platforma.h < item.y) {
+  if (platforma.y + platforma.height < item.y) {
     return true;
   }
   return false;

@@ -1,6 +1,6 @@
 import { Vector2d } from "./vector2d";
 
-export class Ground {
+export class Ground implements Surface {
   initialX: number;
   initialY: number;
   y = 300;
@@ -24,6 +24,7 @@ export class Ground {
 export interface Surface {
   x: number;
   y: number;
+  width : number;
   height: number;
 }
 
