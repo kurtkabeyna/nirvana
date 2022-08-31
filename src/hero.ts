@@ -1,7 +1,7 @@
 import { Ground, Surface } from "./ground";
 import { Vector2d } from "./vector2d";
 import { Location2, Platform } from "./Location2";
-import { platform } from "sketch";
+import { platform } from "./sketch";
 
 export class Hero {
   restart(surfaces: Ground[]) {
@@ -36,7 +36,8 @@ export class Hero {
   isStanding2(platform:Platform[]) {
     for (let i = 0; i < platform.length; i++) {
       const platforma=platform[i];
-         if (this.x > platforma.x && this.x < platforma.x + platforma.w
+         if (this.x > platforma.x && this.x < platforma.x + platforma.width
+
           && this.y === platforma.y - 20) {
         return true;
       }
@@ -60,7 +61,7 @@ export class Hero {
       const platforma = platform[i];
       if (
         this.x > platforma.x &&
-        this.x < platforma.x + platforma.w &&
+        this.x < platforma.x + platforma.width &&
         this.y > platforma.y
       ) {
         return true;
