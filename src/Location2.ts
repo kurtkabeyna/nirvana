@@ -1,5 +1,5 @@
 import { Surface } from "./ground";
-import { hero, location2, surfaces, coins, landscape } from "./sketch";
+import { hero, location2, coins, landscape } from "./sketch";
 import { Vector2d } from "./vector2d";
 
 export class Location2 {
@@ -9,12 +9,15 @@ export class Location2 {
     this.y = this.initialY;
   }
   initialX: number;
-  initialY: number;
-  platform:Platform[]=[]
+  initialY: number;  
+  surfaces=[]
+
+
+
   constructor(public x, public y) {
     this.initialX = this.x;
     this.initialY = this.y;
-    this.platform = [
+    this.surfaces = [
       new Platform(this.x + 500, this.y, 1208.42, 12.59),
       new Platform(this.x + 500, this.y, 12.59, 400),
       new Platform(this.x + 887, this.y + 90, 12.59, 162),
@@ -37,18 +40,18 @@ export class Location2 {
   
 
   update(heroMovement: Vector2d) {
-    const dx = hero.calculateSpeed(surfaces);
+    const dx = hero.calculateSpeed(this.surfaces);
     this.x = this.x - heroMovement.x;
     this.y = this.y - heroMovement.y;
     landscape.update(dx);
-    this.platform.forEach(platform=>platform.update(dx))
+    this.surfaces.forEach(surfaces=>surfaces.update(dx))
     return 0;
   }
 
   draw() {
     background(0, 209, 182);
     fill("#291C16");
-    this.platform.forEach(platform=>platform.draw())
+    this.surfaces.forEach(surfaces=>surfaces.draw())
     hero.draw();
     landscape.draw();
   }
@@ -72,12 +75,12 @@ export class Platform implements Surface {
     this.initialX = this.x;
     this.initialY = this.y;
     
-
+  
   }
   draw(){
     rect(this.x, this.y,this.width,this.height)
   }
-}
+
 isStanding(surfaces: Surface[]) {
   for (let i = 0; i < surfaces.length; i++) {
     const surface = surfaces[i];
@@ -91,6 +94,7 @@ isStanding(surfaces: Surface[]) {
     }
   }
   return false;
+}
 }
 
 interface Hero {

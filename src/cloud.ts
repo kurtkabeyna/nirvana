@@ -18,7 +18,7 @@ export class Cloud {
     this.direction = 1;
   }
   dropRaindrops() {
-    const N = random(5, 7);
+    const N = Math.random() * 5 + 2;
     for (let i = 0; i < N; i++) {
       if (this.drops.length >= 1000) {
         const dropOutsideCanvas = this.drops.filter(

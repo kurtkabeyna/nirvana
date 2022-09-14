@@ -17,9 +17,10 @@ export class Hero {
   height = 50;
   constructor(public x, public y) {
     this.direction = 1;
-  }
+  }  
 
   isStanding(surfaces: Surface[]) {
+    debugger;
     for (let i = 0; i < surfaces.length; i++) {
       const surface = surfaces[i];
       // console.log(this.y - surface.y);
@@ -33,42 +34,7 @@ export class Hero {
     }
     return false;
   }
-  isStanding2(platform:Platform[]) {
-    for (let i = 0; i < platform.length; i++) {
-      const platforma=platform[i];
-         if (this.x > platforma.x && this.x < platforma.x + platforma.width
 
-          && this.y === platforma.y - 20) {
-        return true;
-      }
-    }
-    return false;
-  }
-  calculateSpeed2(platform:Platform[]) {
-    let speed = new Vector2d(0, 0);
-    const fx = 2;
-    if (!this.isStanding2(platform)) {
-      speed.y = 2;
-    }
-    if (this.isInSurface2(platform)) {
-      speed.x = 0;
-      speed.y = 2;
-      return speed;
-    }
-  }
-  isInSurface2(platform: Platform[]): boolean {
-    for (let i = 0; i < platform.length; i++) {
-      const platforma = platform[i];
-      if (
-        this.x > platforma.x &&
-        this.x < platforma.x + platforma.width &&
-        this.y > platforma.y
-      ) {
-        return true;
-      }
-    }
-    return false;
-  }
   calculateSpeed(surfaces: Ground[]) {
     let speed = new Vector2d(0, 0);
     const fx = 2;
