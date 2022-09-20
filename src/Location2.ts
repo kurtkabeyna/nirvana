@@ -6,7 +6,7 @@ export class Location2 {
   width: number;
   restart() {
     this.x = this.initialX;
-    this.y = this.initialY;
+    this.y = this.initialY; 
   }
   initialX: number;
   initialY: number;  
@@ -18,16 +18,16 @@ export class Location2 {
     this.initialX = this.x;
     this.initialY = this.y;
     this.surfaces = [
-      new Platform(this.x + 500, this.y, 1208.42, 12.59),
+      new Platform(this.x + 500, this.y, 1150, 12.59),
       new Platform(this.x + 500, this.y, 12.59, 400),
       new Platform(this.x + 887, this.y + 90, 12.59, 162),
       new Platform(this.x + 500, this.y + 90, 90, 12.59),
-      new Platform(this.x + 575, this.y + 175, 150, 12.59),
-      new Platform(this.x + 575, this.y + 175, 12.59, 70),
-      new Platform(this.x + 655, this.y + 245, 12.59, 70),
-      new Platform(this.x + 800, this.y + 175, 12.59, 70),
+      new Platform(this.x + 575, this.y + 176, 150, 12.59),
+      new Platform(this.x + 575, this.y + 176, 12.59, 70),
+      new Platform(this.x + 655, this.y + 246, 12.59, 70),
+      new Platform(this.x + 800, this.y + 176, 12.59, 70),
       new Platform(this.x + 800, this.y + 90, 90, 12.59),
-      new Platform(this.x + 800, this.y + 239, 90, 12.59),
+      new Platform(this.x + 800, this.y + 238, 90, 12.59),
       new Platform(this.x + 987, this.y + 90, 12.59, 162),
       new Platform(this.x + 1708.42, this.y, 12.59, 400),
       new Platform(this.x + 1518.42, this.y + 90, 190, 12.59),
@@ -66,47 +66,25 @@ export class Platform implements Surface {
   initialX: number;
   initialY: number;
   update(heroMovement:Vector2d){
-    this.x=this.x+heroMovement.x;
-    this.y=this.y+heroMovement.y;
+    this.x=this.x-heroMovement.x;
+    this.y=this.y-heroMovement.y;
 
 
   }
   constructor(public x,public y, public width,public height) {
     this.initialX = this.x;
     this.initialY = this.y;
-    
-  
   }
   draw(){
     rect(this.x, this.y,this.width,this.height)
   }
-
-isStanding(surfaces: Surface[]) {
-  for (let i = 0; i < surfaces.length; i++) {
-    const surface = surfaces[i];
-    // console.log(this.y - surface.y);
-    if (
-      this.x > surface.x &&
-      this.x < surface.x + surface.width &&
-      this.y === surface.y - 20
-    ) {
-      return true;
-    }
-  }
-  return false;
-}
 }
 
 interface Hero {
   x: number;
   y: number;
 }
-export function isBelowPlatform(platforma: Platform, item: Hero) {
-  if (platforma.y + platforma.height < item.y) {
-    return true;
-  }
-  return false;
-}
+
 
 export class Coins {
   restart() {
@@ -138,6 +116,7 @@ export class Coins {
     circle(this.x + 816, this.y + 100, 50);
     circle(this.x + 1030, this.y + 75, 50);
   }
+  
 
 }
 

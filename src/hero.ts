@@ -20,14 +20,13 @@ export class Hero {
   }  
 
   isStanding(surfaces: Surface[]) {
-    debugger;
     for (let i = 0; i < surfaces.length; i++) {
       const surface = surfaces[i];
       // console.log(this.y - surface.y);
       if (
         this.x > surface.x &&
         this.x < surface.x + surface.width &&
-        this.y === surface.y - 20
+        this.y == surface.y - 20
       ) {
         return true;
       }

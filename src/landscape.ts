@@ -1,10 +1,11 @@
+import { Surface } from "./ground";
 import { Vector2d } from "./vector2d";
-export class Landscape {
+export class Landscape  implements Surface {
   initialX: number;
   initialY: number;
   width = 400;
   height = 150;
-  constructor(public x, public y) {
+  constructor(public x,public y) {
     this.initialX = this.x;
     this.initialY = this.y;
   }

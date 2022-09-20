@@ -7,7 +7,7 @@ import { Hero } from "./hero";
 import { Circle, Log, Hole } from "./items";
 import { Ground, isBelowSurface, Surface } from "./ground";
 import { Location1 } from "./Location1";
-import { Coins, Location2, Platform,isBelowPlatform } from "./Location2";
+import { Coins, Location2, Platform } from "./Location2";
 import { Landscape } from "./landscape";
 
 export let log = new Log(700, 200);
@@ -22,7 +22,7 @@ export let coins = new Coins(30, 90);
 export let landscape = new Landscape(0, 300);
 
 
-const locations = [new Location1(), new Location2(-500, 0)];
+const locations = [new Location1(), new Location2(-500, 300)];
 let currentLocation = 0;
 
 
