@@ -36,6 +36,11 @@ export class Location1 {
   }
 
   update(dx: Vector2d): number {
+    console.log("Travelled distance: ", hero.traveledDistance);
+    if (hero.traveledDistance < 1 && keyIsDown(LEFT_ARROW)) {
+      return 0;
+     
+}
     this.surfaces.forEach((surface) => surface.update(dx));
     house.update(dx);
     cloud.update(dx);
@@ -43,13 +48,11 @@ export class Location1 {
     circle.update(dx);
     hole.update(dx);
     let locationSwitch = 0; // -1 0 1
-    console.log("Travelled distance: ", hero.traveledDistance);
+    
     if (hero.traveledDistance > 500) {
       locationSwitch = 1;
     }
-    if (hero.traveledDistance < 0) {
-      locationSwitch = -1;
-    }
+
     return locationSwitch;
   }
 
