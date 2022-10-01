@@ -1,25 +1,16 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import "p5";
-import { Cloud } from "./cloud";
 import { canvasWidth, canvasHeight } from "./consts";
-import { House } from "./house";
 import { Hero } from "./hero";
-import { Circle, Log, Hole } from "./items";
-import { Ground, isBelowSurface, Surface } from "./ground";
-import { Location1 } from "./Location1";
-import { Coins, Location2, Platform } from "./Location2";
-import { Landscape } from "./landscape";
+import { Circle } from "./Circle";
+import { Location1 } from "./location1/location1";
+import { Location2 } from "./location2/location2";
+import { Coins } from "./location2/coins";
 
-export let log = new Log(700, 200);
-export let house = new House(200, 160);
-export let cloud = new Cloud(20, 30);
 export let hero = new Hero(50, 280);
-export let circle = new Circle(900, 75);
-export let hole = new Hole(1000, 300);
-export let location2 = new Location2(0, 0);
-export let platform: Platform[] = [];
+/** TODO: move circle to location1 */
+export let circle = new Circle(100, 100);
 export let coins = new Coins(30, 90);
-export let landscape = new Landscape(0, 300);
 
 
 const locations = [new Location1(), new Location2(-500, 300)];

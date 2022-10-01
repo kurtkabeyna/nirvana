@@ -1,7 +1,7 @@
 import { canvasHeight, canvasWidth } from "./consts";
 
 export class Raindrop {
-  constructor(public x, public y) {}
+  constructor(public x, public y) { }
 
   move() {
     let dr = 1;
@@ -19,5 +19,5 @@ export class Raindrop {
     ellipse(this.x, this.y, 3);
   }
 
-  animate() {}
+  animate() { }
 }

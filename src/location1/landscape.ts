@@ -1,11 +1,14 @@
-import { Surface } from "./ground";
-import { Vector2d } from "./vector2d";
-export class Landscape  implements Surface {
+import { Drawable } from "../interfaces/drawable";
+import { Movable } from "../interfaces/movable";
+import { Surface } from "../surface";
+import { Vector2d } from "../vector2d";
+
+export class Landscape implements Surface, Movable, Drawable {
   initialX: number;
   initialY: number;
   width = 400;
   height = 150;
-  constructor(public x,public y) {
+  constructor(public x: number, public y: number) {
     this.initialX = this.x;
     this.initialY = this.y;
   }

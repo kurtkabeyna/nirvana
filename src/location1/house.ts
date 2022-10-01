@@ -1,14 +1,16 @@
-import { Vector2d } from "./vector2d";
+import { Vector2d } from "../vector2d";
 
 export class House {
   initialX: number;
   initialY: number;
-  restart(House) {
+
+
+  restart() {
     this.x = this.initialX;
     this.y = this.initialY;
   }
 
-  constructor(public x, public y) {
+  constructor(public x: number, public y: number) {
     this.initialX = this.x;
     this.initialY = this.y;
   }

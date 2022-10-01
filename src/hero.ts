@@ -1,7 +1,6 @@
-import { Ground, Surface } from "./ground";
+import { Ground } from "./ground";
+import { Surface } from "./surface";
 import { Vector2d } from "./vector2d";
-import { Location2, Platform } from "./Location2";
-import { platform } from "./sketch";
 
 export class Hero {
   restart(surfaces: Ground[]) {
@@ -17,12 +16,11 @@ export class Hero {
   height = 50;
   constructor(public x, public y) {
     this.direction = 1;
-  }  
+  }
 
   isStanding(surfaces: Surface[]) {
     for (let i = 0; i < surfaces.length; i++) {
       const surface = surfaces[i];
-      // console.log(this.y - surface.y);
       if (
         this.x > surface.x &&
         this.x < surface.x + surface.width &&
@@ -63,6 +61,7 @@ export class Hero {
     this.traveledDistance += speed.x;
     return speed;
   }
+
 
   isInSurface(surfaces: Ground[]): boolean {
     for (let i = 0; i < surfaces.length; i++) {

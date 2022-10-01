@@ -1,18 +1,16 @@
-import { Vector2d } from "./vector2d";
-import { canvasHeight, canvasWidth } from "./consts";
-import { Raindrop } from "./raindrop";
+import { Vector2d } from "../vector2d";
+import { canvasHeight, canvasWidth } from "../consts";
+import { Raindrop } from "../raindrop";
+import { Movable } from "../interfaces/movable";
+import { Drawable } from "../interfaces/drawable";
 
-export class Cloud {
-  restart() {
-    this.x = this.initialX;
-    this.y = this.initialY;
-  }
+export class Cloud implements Movable, Drawable {
   initialX: number;
   initialY: number;
   drops: Raindrop[] = [];
-  direction;
+  direction: number;
 
-  constructor(public x, public y) {
+  constructor(public x: number, public y: number) {
     this.initialX = this.x;
     this.initialY = this.y;
     this.direction = 1;
@@ -30,17 +28,21 @@ export class Cloud {
         dropOutsideCanvas.x = this.x + i * 5;
         dropOutsideCanvas.y = this.y;
       } else {
-        // x
-        // x + 5
-        // x + 5 + 5
-
         this.drops.push(new Raindrop(this.x + i * 5, this.y));
       }
     }
   }
+
+  restart() {
+    this.x = this.initialX;
+    this.y = this.initialY;
+  }
+
+
   moveRaindrops() {
     this.drops.forEach((drop) => drop.move());
   }
+
   move() {
     const dx = 1.2;
     this.x = this.x + dx * this.direction;
@@ -49,21 +51,20 @@ export class Cloud {
       this.direction = this.direction * -1;
     }
   }
-  //змінювати краплі через move()
-  //та raindrop
-  //зробити краплю на  2 місці
+
   draw() {
     this.drops.forEach((drop) => drop.draw());
     fill("grey");
     noStroke();
-    circle(this.x + 5, this.y + 20, 32); //ліве
-    circle(this.x + 25, this.y + 20, 32); //праве
-    circle(this.x + 15, this.y + 15, 32); //середнє
-    circle(this.x + 15, this.y + 25, 29); //нижнє
+    circle(this.x + 5, this.y + 20, 32);
+    circle(this.x + 25, this.y + 20, 32);
+    circle(this.x + 15, this.y + 15, 32);
+    circle(this.x + 15, this.y + 25, 29);
   }
+
   update(heroMovement: Vector2d) {
     this.x = this.x - heroMovement.x;
     this.y = this.y - heroMovement.y;
-    return Cloud;
+    return this;
   }
 }

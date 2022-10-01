@@ -1,3 +1,4 @@
+import { Surface } from "./surface";
 import { Vector2d } from "./vector2d";
 
 export class Ground implements Surface {
@@ -21,21 +22,4 @@ export class Ground implements Surface {
   }
 }
 
-export interface Surface {
-  x: number;
-  y: number;
-  width : number;
-  height: number;
-}
 
-interface Hero {
-  x: number;
-  y: number;
-}
-
-export function isBelowSurface(surface: Surface, item: Hero) {
-  if (surface.y + surface.height < item.y) {
-    return true;
-  }
-  return false;
-}
