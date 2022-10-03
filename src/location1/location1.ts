@@ -8,7 +8,7 @@ import { Hole } from "./hole";
 import { Log } from "./log";
 import { Cloud } from "./cloud";
 import { Landscape } from "./landscape";
-import { circle } from "../sketch";
+import { Circle } from "./Circle";
 
 
 export class Location1 {
@@ -28,7 +28,8 @@ export class Location1 {
       new Hole(1000, 300),
       new Log(700, 200),
       new Cloud(20, 30),
-      new Landscape(0, 300)
+      new Landscape(0, 300),
+      new Circle(100, 100)
     ]
   }
 
@@ -37,7 +38,7 @@ export class Location1 {
     this.objects.forEach(obj => obj.draw());
     this.surfaces.forEach((surface) => surface.draw());
     hero.draw();
-    circle.drawCircle();
+    
 
   }
 
@@ -49,7 +50,7 @@ export class Location1 {
     }
     this.objects.forEach(obj => obj.update(dx));
     this.surfaces.forEach((surface) => surface.update(dx));
-    circle.update(dx);
+   
     let locationSwitch = 0; // -1 0 1
 
     if (hero.traveledDistance > 500) {

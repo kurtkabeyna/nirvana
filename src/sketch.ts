@@ -2,14 +2,14 @@
 import "p5";
 import { canvasWidth, canvasHeight } from "./consts";
 import { Hero } from "./hero";
-import { Circle } from "./Circle";
+import { Circle } from "./location1/Circle";
 import { Location1 } from "./location1/location1";
 import { Location2 } from "./location2/location2";
 import { Coins } from "./location2/coins";
 
 export let hero = new Hero(50, 280);
 /** TODO: move circle to location1 */
-export let circle = new Circle(100, 100);
+
 export let coins = new Coins(30, 90);
 
 
@@ -33,6 +33,8 @@ function draw() {
   const locationChange = location.update(dx);
   currentLocation += locationChange;
   location.draw();
+  
+
 }
 
 
