@@ -10,8 +10,14 @@ export class Location2 {
   }
   initialX: number;
   initialY: number;
-  surfaces = []
+  surfaces = [];
+  private intervalHandler: number;
 
+  onEnter() {
+    this.intervalHandler = setInterval(() => {
+      hero.currentLocation = "location 2"
+    }, 1000)
+  }
 
 
   constructor(public x, public y) {

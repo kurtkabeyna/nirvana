@@ -14,6 +14,7 @@ import { Circle } from "./Circle";
 export class Location1 {
   surfaces = [];
   objects: (Movable & Drawable)[]
+  private intervalHandler: number = null;
 
   constructor() {
     let width = Math.random() * 400 + 100;
@@ -31,6 +32,14 @@ export class Location1 {
       new Landscape(0, 300),
       new Circle(100, 100)
     ]
+
+
+  }
+
+  onEnter() {
+    this.intervalHandler = setInterval(() => {
+      hero.currentLocation = "location 1"
+    }, 1000)
   }
 
   draw() {
@@ -38,19 +47,18 @@ export class Location1 {
     this.objects.forEach(obj => obj.draw());
     this.surfaces.forEach((surface) => surface.draw());
     hero.draw();
-    
+
 
   }
 
   update(dx: Vector2d): number {
-    console.log("Travelled distance: ", hero.traveledDistance);
     if (hero.traveledDistance < 1 && keyIsDown(LEFT_ARROW)) {
       return 0;
 
     }
     this.objects.forEach(obj => obj.update(dx));
     this.surfaces.forEach((surface) => surface.update(dx));
-   
+
     let locationSwitch = 0; // -1 0 1
 
     if (hero.traveledDistance > 500) {
