@@ -1,6 +1,9 @@
-import { hero, coins } from "../sketch";
+import { hero,  } from "../sketch";
 import { Vector2d } from "../vector2d";
 import { Platform } from "./platform";
+import { Movable } from "../interfaces/movable";
+import { Drawable } from "../interfaces/drawable";
+import { Coins } from "./coins";
 
 export class Location2 {
   width: number;
@@ -8,19 +11,32 @@ export class Location2 {
     this.x = this.initialX;
     this.y = this.initialY;
   }
+
   initialX: number;
   initialY: number;
   surfaces = [];
+  objects: (Movable & Drawable)[]
   private intervalHandler: number;
+  private IsInLocation: boolean;
+
 
   onEnter() {
+    this.IsInLocation = true;
     this.intervalHandler = setInterval(() => {
+      if(this.IsInLocation )
       hero.currentLocation = "location 2"
+     
     }, 1000)
   }
+  
+  OnLeave(){
+    this.IsInLocation = false;
 
-
+  
+  }
+ 
   constructor(public x, public y) {
+  
     this.initialX = this.x;
     this.initialY = this.y;
     this.surfaces = [
@@ -42,6 +58,9 @@ export class Location2 {
       new Platform(this.x + 1458.42, this.y + 230, 190, 12.59),
       new Platform(this.x + 1058.42, this.y + 230, 190, 12.59),
     ]
+      this.objects = [
+        new Coins(30, 90),
+      ]
   }
 
 

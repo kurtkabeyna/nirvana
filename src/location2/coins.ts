@@ -20,7 +20,7 @@ export class Coins {
         this.y = this.y - heroSpeed.y;
     }
 
-    drawCoins() {
+    draw() {
         fill(224, 208, 25);
         circle(this.x + 630, this.y + 50, 50);
         circle(this.x + 930, this.y - 30, 50);

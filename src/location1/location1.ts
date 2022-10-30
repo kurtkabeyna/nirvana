@@ -15,6 +15,7 @@ export class Location1 {
   surfaces = [];
   objects: (Movable & Drawable)[]
   private intervalHandler: number = null;
+  private IsInLocation :boolean ;
 
   constructor() {
     let width = Math.random() * 400 + 100;
@@ -37,11 +38,22 @@ export class Location1 {
   }
 
   onEnter() {
+    this.IsInLocation = true;
     this.intervalHandler = setInterval(() => {
+    if(this.IsInLocation == true){
       hero.currentLocation = "location 1"
-    }, 1000)
+
+   
+         }      
+      }, 1000)
   }
 
+
+  OnLeave(){
+    this.IsInLocation = false;
+   
+  }
+  
   draw() {
     background(0, 206, 209);
     this.objects.forEach(obj => obj.draw());
