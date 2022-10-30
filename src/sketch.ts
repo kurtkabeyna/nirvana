@@ -7,7 +7,7 @@ import { Location2 } from "./location2/location2";
 import { Coins } from "./location2/coins";
 
 export let hero = new Hero(50, 280);
-export let coins = new Coins(30, 90);
+
 
 
 const locations = [new Location1(), new Location2(-500, 300)];
@@ -21,16 +21,25 @@ function setup() {
 
 
 locations[currentLocation].onEnter()
+
+
+
 function draw() {
   let location = locations[currentLocation];
   const dx = hero.calculateSpeed(location.surfaces);
-  coins.drawCoins();
+
   const locationChange = location.update(dx);
   currentLocation += locationChange;
+  
   if (locationChange != 0) {
+    location.OnLeave();
     location = locations[currentLocation]
     location.onEnter();
+    
+    
   }
+  
+
   location.draw();
   console.log("Current hero location is: ", hero.currentLocation);
 }
