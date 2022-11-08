@@ -1,3 +1,5 @@
+import { Coins } from "location2/coins";
+import { hero } from "sketch";
 import { Ground } from "./ground";
 import { Surface } from "./surface";
 import { Vector2d } from "./vector2d";
@@ -20,6 +22,20 @@ export class Hero {
     this.direction = 1;
   }
 
+  /*ObjFilter(object: Coins[]) {
+    for (let i = 0; i < Coins.length; i++) {
+      const  object =  Coins[i];
+      if (
+        hero.x < object.radius + object.x
+        && hero.x > object.x - object.radius
+        && hero.y < object.y + object.radius && hero.y > object.y - object.radius)
+       {
+        return true;
+      }
+    }
+    return false;
+  }
+  */
   isStanding(surfaces: Surface[]) {
     for (let i = 0; i < surfaces.length; i++) {
       const surface = surfaces[i];

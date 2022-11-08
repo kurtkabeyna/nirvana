@@ -5,6 +5,7 @@ import { Movable } from "../interfaces/movable";
 import { Drawable } from "../interfaces/drawable";
 import { Coins } from "./coins";
 
+
 export class Location2 {
   width: number;
   restart() {
@@ -17,8 +18,12 @@ export class Location2 {
   surfaces = [];
   objects: (Coins)[]
   private intervalHandler: number;
-  private IsInLocation: boolean;
+  private IsInLocation: boolean;/*
+  private Score: string  = "Score =  " ;*/
+  private Score = 0;
 
+
+  private filterQ ;
 
   onEnter() {
     this.IsInLocation = true;
@@ -34,6 +39,7 @@ export class Location2 {
 
 
   }
+  
 
   constructor(public x, public y) {
 
@@ -72,24 +78,28 @@ export class Location2 {
 
     ]
   }
-
-
+  
+ 
   update(heroMovement: Vector2d) {
     const dx = hero.calculateSpeed(this.surfaces);
     this.x = this.x - heroMovement.x;
     this.y = this.y - heroMovement.y;
     this.surfaces.forEach(surfaces => surfaces.update(dx))
-
+    
     this.objects = this.objects.filter(object => {
-      if (hero.x < object.radius + object.x
+   
+      
+      if ( hero.x < object.radius + object.x
         && hero.x > object.x - object.radius
-        && hero.y < object.y + object.radius && hero.y > object.y - object.radius) { return false; }
+        && hero.y < object.y + object.radius && hero.y > object.y - object.radius) 
+        { return this.Score += 1 , false ; }
+        
       else
         return true;
     })
     this.objects.forEach(objects => objects.update(dx))
     return 0;
-
+    
   }
 
   draw() {
@@ -98,7 +108,9 @@ export class Location2 {
     this.surfaces.forEach(surfaces => surfaces.draw())
     hero.draw();
     this.objects.forEach(objects => objects.draw())
+    console.log(this.Score);
   }
+  
 }
 
 
