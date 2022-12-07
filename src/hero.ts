@@ -4,6 +4,8 @@ import { Ground } from "./ground";
 import { Surface } from "./surface";
 import { Vector2d } from "./vector2d";
 
+
+
 export class Hero {
   public currentLocation: string = "";
 
@@ -22,35 +24,25 @@ export class Hero {
     this.direction = 1;
   }
 
-  /*ObjFilter(object: Coins[]) {
-    for (let i = 0; i < Coins.length; i++) {
-      const  object =  Coins[i];
-      if (
-        hero.x < object.radius + object.x
-        && hero.x > object.x - object.radius
-        && hero.y < object.y + object.radius && hero.y > object.y - object.radius)
-       {
-        return true;
-      }
-    }
-    return false;
-  }
-  */
+ 
   isStanding(surfaces: Surface[]) {
+   
     for (let i = 0; i < surfaces.length; i++) {
       const surface = surfaces[i];
       if (
         this.x > surface.x &&
-        this.x < surface.x + surface.width &&
-        this.y == surface.y - 20
+       this.x < surface.x + surface.width &&
+          this.y == surface.y - 20
       ) {
         return true;
       }
     }
+ 
     return false;
   }
 
   calculateSpeed(surfaces: Ground[]) {
+    //console.log("hero.x.ts",this.x);
     let speed = new Vector2d(0, 0);
     const fx = 2;
     if (!this.isStanding(surfaces)) {
@@ -64,11 +56,11 @@ export class Hero {
     if (keyIsDown(UP_ARROW)) {
       speed.y = -2;
     }
-    if (keyIsDown(DOWN_ARROW)) {
-      speed.y = 2;
+     if (keyIsDown(DOWN_ARROW)) {
+       speed.y = 2;
 
-      return speed;
-    }
+     return speed;
+     }
     if (keyIsDown(RIGHT_ARROW)) {
       speed.x = fx * this.direction;
     }
@@ -84,11 +76,11 @@ export class Hero {
   isInSurface(surfaces: Ground[]): boolean {
     for (let i = 0; i < surfaces.length; i++) {
       const surface = surfaces[i];
-      // console.log(this.y - surface.y);
+       //console.log("surface.width.hero.ts",surface.width);
       if (
         this.x > surface.x &&
         this.x < surface.x + surface.width &&
-        this.y > surface.y
+        this.y > surface.y && this.y < surface.y + surface.height
       ) {
         return true;
       }

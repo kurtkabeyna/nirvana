@@ -28,7 +28,7 @@ export class Location1 {
     this.objects = [
       new House(200, 160),
       new Hole(1000, 300),
-      new Log(700, 200),
+      new Log(570, 200),
       new Cloud(20, 30),
       new Landscape(0, 300),
       new Circle(100, 100)

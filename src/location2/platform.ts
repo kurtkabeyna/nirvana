@@ -7,10 +7,13 @@ export class Platform implements Surface {
     update(heroMovement: Vector2d) {
         this.x = this.x - heroMovement.x;
         this.y = this.y - heroMovement.y;
+        if(this.name){
+            //console.log(this.name,this.x,this.y)
+        }
 
 
     }
-    constructor(public x, public y, public width, public height) {
+    constructor(public x, public y, public width, public height, public name ="") {
 
     }
     draw() {

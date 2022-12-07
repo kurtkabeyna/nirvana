@@ -1,7 +1,9 @@
 import { Surface } from "./surface";
+import { Movable } from "./interfaces/movable";
+import { Drawable } from "./interfaces/drawable";
 import { Vector2d } from "./vector2d";
 
-export class Ground implements Surface {
+export class Ground implements Surface, Movable, Drawable {
   initialX: number;
   initialY: number;
   y = 300;

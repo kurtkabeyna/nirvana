@@ -10,7 +10,7 @@ export class Log implements Movable, Drawable {
   }
 
   draw() {
-    fill("brown");
+    fill("purple");
     rect(this.x, this.y, 10, 100);
   }
 }

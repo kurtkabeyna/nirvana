@@ -5,10 +5,10 @@ import { Hero } from "./hero";
 import { Location1 } from "./location1/location1";
 import { Location2 } from "./location2/location2";
 import { Coins } from "./location2/coins";
-
+import { Box } from "./location2/box";
 export let hero = new Hero(50, 280);
 
-
+export let box  = new Box(50,70);
 
 const locations = [new Location1(), new Location2(-500, 300)];
 let currentLocation = 0;
@@ -41,7 +41,7 @@ function draw() {
   
 
   location.draw();
-  console.log("Current hero location is: ", hero.currentLocation);
+  //console.log("Current hero location is: ", hero.currentLocation);
 }
 
 
