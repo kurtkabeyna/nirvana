@@ -8,7 +8,7 @@ import { Coins } from "./location2/coins";
 import { Box } from "./location2/box";
 export let hero = new Hero(50, 280);
 
-export let box  = new Box(50,70);
+
 
 const locations = [new Location1(), new Location2(-500, 300)];
 let currentLocation = 0;

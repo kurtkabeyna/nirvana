@@ -1,7 +1,7 @@
 import { Drawable  } from "interfaces/drawable";
 import { Movable } from "interfaces/movable";
 import { Vector2d } from "../vector2d";
-export class Box implements Drawable, Movable {
+export class Block {
     
     constructor(public x : number, public y : number){ }
     draw() {
@@ -12,9 +12,9 @@ export class Box implements Drawable, Movable {
     rect(this.x + 49, this.y, 4 , 53 );//right line
     rect(this.x , this.y, 53 , 4 );//up line
     rect(this.x , this.y + 49, 53 , 4 );//down line
-    rect(this.x , this.y + 17, 53 , 4 );//down line
-    fill(169,169,169);//grey
-    rect(this.x + 22, this.y + 14 , 9 , 16)
+    rect(this.x , this.y + 17, 53 , 4 );//middle
+    rect(this.x , this.y + 34, 53 , 4 );//middle
+
      }
 
     update(heroMovement:Vector2d){

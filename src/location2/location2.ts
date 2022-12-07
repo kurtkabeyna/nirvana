@@ -8,7 +8,8 @@ import { Hero } from "hero";
 import { Ground } from "ground";
 import { Surface } from "surface";
 import { Location1} from "location1/location1";
-import { box }  from "sketch";
+import { Box } from "../location2/box"
+import { Enemy } from "../enemies/enemy";
 
 export class Location2 {
   width: number;
@@ -20,8 +21,9 @@ export class Location2 {
   initialX: number;
   initialY: number;
   surfaces = [];
-  objects: Coins[]
- 
+  objects: Coins[];
+  boxes : Box[];
+  enemies : Enemy[];
   private intervalHandler: number;
   private IsInLocation: boolean;
   private ScoreString: string  = "Score = " ;
@@ -35,7 +37,7 @@ export class Location2 {
     this.IsInLocation = true;
     this.intervalHandler = setInterval(() => {
       if (this.IsInLocation)
-        hero.currentLocation = "location 2"
+        hero.currentLocation = "location 2";
 
     }, 1000)
   }
@@ -89,10 +91,22 @@ export class Location2 {
       new Coins(this.x + 1160, this.y + 206, 50),
 
     ]
+this.boxes = [
+  new Box(this.x + 515 ,this.y + 37),
+  new Box(this.x + 1150 ,this.y + 65),
+  // new Box(this.x + 645 ,this.y + 153),
+  // new Box(this.x + 1350 ,this.y + 135),
+  // new Box(this.x + 850 ,this.y + 65),
+  new Box(50,70),
+]
+this.enemies = [
+  new Enemy(this.x + 600 ,this.y + 100 , 20),
+]
   }
   
  
   update(heroMovement: Vector2d) {
+    
     const dx = hero.calculateSpeed(this.surfaces);
     this.x = this.x - heroMovement.x;
     this.y = this.y - heroMovement.y;
@@ -108,18 +122,22 @@ export class Location2 {
         return true;
     })
     this.objects.forEach(objects => objects.update(dx))
+    this.boxes.forEach(box => box.update(heroMovement))
+    this.enemies.forEach(enemy => enemy.update(heroMovement))
     return 0;
     
   }
 
   draw() {
+ 
     background(0, 209, 182);
     fill("#291C16");
     this.surfaces.forEach(surfaces => surfaces.draw())
     hero.draw();
     this.objects.forEach(objects => objects.draw())
-    box.draw();
- 
+    this.enemies.forEach(enemies => enemies.draw())
+    this.boxes.forEach(box => box.draw())
+   
   }
   
 }

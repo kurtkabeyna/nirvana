@@ -8,7 +8,7 @@ export class Platform implements Surface {
         this.x = this.x - heroMovement.x;
         this.y = this.y - heroMovement.y;
         if(this.name){
-            //console.log(this.name,this.x,this.y)
+           
         }
 
 
