@@ -95,5 +95,24 @@ export class Hero {
     circle(this.x - 10, this.y - 10, 5);
     circle(this.x + 10, this.y - 10, 5);
     fill("red");
+    fill("white");
+    rect(this.x + 20,this.y - 4, 7 , 30,30)
+    // translate(this.x+20,this.y-47);
+    // rotate(PI/4);
+    // fill("green");
+    // rect(40,15, 7 , 50,15);
+    // rotate(-PI/4);
+    // translate(-this.x-20,-this.y+47);
+   Rotate_and_draw(this.x+20,this.y-47,PI/4);
+   
   }
+  
+}
+function Rotate_and_draw(x,y,angle){
+  translate(x,y);
+  rotate(angle);
+  fill("green");
+  rect(40,15, 7 , 50,15);
+  rotate(-angle);
+  translate(-x,-y);
 }

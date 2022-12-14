@@ -10,6 +10,7 @@ import { Surface } from "surface";
 import { Location1} from "location1/location1";
 import { Box } from "../location2/box"
 import { Enemy } from "../enemies/enemy";
+import { Bullet } from "../enemies/bullet";
 
 export class Location2 {
   width: number;
@@ -84,23 +85,23 @@ export class Location2 {
       new Coins(this.x + 1130, this.y + 65, 50),
       new Coins(this.x + 1670, this.y + 65, 50),
       new Coins(this.x + 1350, this.y + 135, 50),
-      new Coins(this.x + 1550, this.y + 205, 50),
+      new Coins(this.x + 750, this.y + 75, 50),
       new Coins(this.x + 645, this.y + 153, 50),
-      new Coins(this.x + 849, this.y + 212, 50),
+      new Coins(this.x + 749, this.y + 212, 50),
       new Coins(this.x + 546, this.y + 230, 50),
       new Coins(this.x + 1160, this.y + 206, 50),
 
     ]
 this.boxes = [
-  new Box(this.x + 515 ,this.y + 37),
+  new Box(this.x + 829, this.y + 192),
   new Box(this.x + 1150 ,this.y + 65),
-  // new Box(this.x + 645 ,this.y + 153),
-  // new Box(this.x + 1350 ,this.y + 135),
+  // new Box(this.x + 695 ,this.y + 293),
+  new Box(this.x + 1610 ,this.y + 180),
   // new Box(this.x + 850 ,this.y + 65),
-  new Box(50,70),
+  // new Box(250,270),
 ]
 this.enemies = [
-  new Enemy(this.x + 600 ,this.y + 100 , 20),
+  new Enemy(this.x + 650 ,this.y + 176 , 40),
 ]
   }
   
