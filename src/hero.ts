@@ -19,25 +19,25 @@ export class Hero {
   public traveledDistance = 0;
 
   direction;
-  height = 50;
+  public radius = 50;
   constructor(public x, public y) {
     this.direction = 1;
   }
 
- 
+
   isStanding(surfaces: Surface[]) {
-   
+
     for (let i = 0; i < surfaces.length; i++) {
       const surface = surfaces[i];
       if (
         this.x > surface.x &&
-       this.x < surface.x + surface.width &&
-          this.y == surface.y - 20
+        this.x < surface.x + surface.width &&
+        this.y == surface.y - 20
       ) {
         return true;
       }
     }
- 
+
     return false;
   }
 
@@ -56,11 +56,11 @@ export class Hero {
     if (keyIsDown(UP_ARROW)) {
       speed.y = -2;
     }
-     if (keyIsDown(DOWN_ARROW)) {
-       speed.y = 2;
+    if (keyIsDown(DOWN_ARROW)) {
+      speed.y = 2;
 
-     return speed;
-     }
+      return speed;
+    }
     if (keyIsDown(RIGHT_ARROW)) {
       speed.x = fx * this.direction;
     }
@@ -76,7 +76,7 @@ export class Hero {
   isInSurface(surfaces: Ground[]): boolean {
     for (let i = 0; i < surfaces.length; i++) {
       const surface = surfaces[i];
-       //console.log("surface.width.hero.ts",surface.width);
+      //console.log("surface.width.hero.ts",surface.width);
       if (
         this.x > surface.x &&
         this.x < surface.x + surface.width &&
@@ -90,29 +90,29 @@ export class Hero {
 
   draw() {
     fill(34, 40, 54);
-    circle(this.x, this.y, this.height);
+    circle(this.x, this.y, this.radius);
     fill("white");
     circle(this.x - 10, this.y - 10, 5);
     circle(this.x + 10, this.y - 10, 5);
     fill("red");
     fill("white");
-    rect(this.x + 20,this.y - 4, 7 , 30,30)
+    rect(this.x + 20, this.y - 4, 7, 30, 30)
     // translate(this.x+20,this.y-47);
     // rotate(PI/4);
     // fill("green");
     // rect(40,15, 7 , 50,15);
     // rotate(-PI/4);
     // translate(-this.x-20,-this.y+47);
-   Rotate_and_draw(this.x+20,this.y-47,PI/4);
-   
+    Rotate_and_draw(this.x + 20, this.y - 47, PI / 4);
+
   }
-  
+
 }
-function Rotate_and_draw(x,y,angle){
-  translate(x,y);
+function Rotate_and_draw(x, y, angle) {
+  translate(x, y);
   rotate(angle);
   fill("green");
-  rect(40,15, 7 , 50,15);
+  rect(40, 15, 7, 50, 15);
   rotate(-angle);
-  translate(-x,-y);
+  translate(-x, -y);
 }
