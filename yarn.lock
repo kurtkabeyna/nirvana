@@ -1774,6 +1774,11 @@
   "resolved" "https://registry.npmjs.org/constants-browserify/-/constants-browserify-1.0.0.tgz"
   "version" "1.0.0"
 
+"consts@^0.0.2":
+  "integrity" "sha512-pWAyH3Dvn0HoKzgODflvL2mqmhm1pgZYXeEpzHOIHSZURkTmkXcR949/mUloUmWZNbfj87CelihhaNKXs3yc6Q=="
+  "resolved" "https://registry.npmjs.org/consts/-/consts-0.0.2.tgz"
+  "version" "0.0.2"
+
 "convert-source-map@^1.5.1", "convert-source-map@^1.7.0":
   "integrity" "sha512-+OQdjP49zViI/6i7nIJpA8rAl4sV/JdPfU9nZs3VqOwGIgizICvuN2ru6fMd+4llL0tar18UYJXfZ/TWtmhUjA=="
   "resolved" "https://registry.npmjs.org/convert-source-map/-/convert-source-map-1.8.0.tgz"

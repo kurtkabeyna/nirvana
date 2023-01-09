@@ -6,6 +6,7 @@
   "private": false,
   "dependencies": {
     "@types/p5": "^1.4.2",
+    "consts": "^0.0.2",
     "p5": "^1.4.1",
     "sketch": "^0.2.0"
   },

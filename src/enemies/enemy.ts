@@ -53,7 +53,7 @@ export class Enemy implements Drawable, Movable{
           circle(this.x +17 ,this.y-36,19);
           fill('black');
           circle(this.x +17 ,this.y-36,7);
-          fill('redz');
+          fill('red');
           circle(this.x +17 ,this.y-36,2);
    
 

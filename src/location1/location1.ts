@@ -68,8 +68,8 @@ export class Location1 {
       return 0;
 
     }
-    this.objects.forEach(obj => obj.update(dx));
-    this.surfaces.forEach((surface) => surface.update(dx));
+    this.objects.forEach(obj => obj.update(dx)); //callback
+    this.surfaces.forEach((surface) => surface.update(dx)); //callback
 
     let locationSwitch = 0; // -1 0 1
 

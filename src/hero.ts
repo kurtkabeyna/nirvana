@@ -1,3 +1,4 @@
+import { Enemy } from "enemies/enemy";
 import { Coins } from "location2/coins";
 import { hero } from "sketch";
 import { Ground } from "./ground";
@@ -94,25 +95,38 @@ export class Hero {
     fill("white");
     circle(this.x - 10, this.y - 10, 5);
     circle(this.x + 10, this.y - 10, 5);
-    fill("red");
+    
+    
+    
+ 
+   Rotate_and_draw(this.x+6.2,this.y-77,PI/9, ()=>{
+    fill(114, 51, 181);
+    rect(40,15, 7 , 50,15);
+   } );
+   Rotate_and_draw(this.x,this.y-48,PI/9, ()=>{
+    fill(139, 140, 129);
+    rect(36, 32, 7 , 25,15);
+   } );
+   Rotate_and_draw(this.x,this.y-48,PI/9, ()=>{
     fill("white");
-    rect(this.x + 20,this.y - 4, 7 , 30,30)
-    // translate(this.x+20,this.y-47);
-    // rotate(PI/4);
-    // fill("green");
-    // rect(40,15, 7 , 50,15);
-    // rotate(-PI/4);
-    // translate(-this.x-20,-this.y+47);
-   Rotate_and_draw(this.x+20,this.y-47,PI/4);
-   
+    rect(36, 32, 7 , 7,15);
+   } );
+   Rotate_and_draw(this.x+6.2,this.y-77,PI/9, ()=>{
+    fill(168, 110, 230);
+    rect(41,17, 5 , 42,15);
+   } );
+   fill("blue");
+   circle(74.66,279,4);
+
   }
   
 }
-function Rotate_and_draw(x,y,angle){
+
+
+function Rotate_and_draw(x,y,angle,drawIt){
   translate(x,y);
   rotate(angle);
-  fill("green");
-  rect(40,15, 7 , 50,15);
+  drawIt();
   rotate(-angle);
   translate(-x,-y);
 }
