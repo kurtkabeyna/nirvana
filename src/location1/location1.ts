@@ -9,13 +9,20 @@ import { Log } from "./log";
 import { Cloud } from "./cloud";
 import { Landscape } from "./landscape";
 import { Circle } from "./Circle";
+import { HERO_SYMBOL, MAP_CELL_HEIGHT_PX, MAP_CELL_WIDTH_PX, SURFACE_SYMBOL } from "../consts";
+import { isObjectInCell, prettyPrintMap, createMapCanvas, createLocationMap } from "../utils/mapUtils";
+import { Surface } from "../surface";
+import { Platform } from "location2/platform";
 
 
 export class Location1 {
-  surfaces = [];
+  surfaces: Ground[] = [];
+  map = [][];
   objects: (Movable & Drawable)[]
   private intervalHandler: number = null;
-  private IsInLocation :boolean ;
+  private IsInLocation: boolean;
+  private readonly locationWidth: number = 500;
+  private readonly locationHeight: number = 500;
 
   constructor() {
     let width = Math.random() * 400 + 100;
@@ -33,37 +40,34 @@ export class Location1 {
       new Landscape(0, 300),
       new Circle(100, 100)
     ]
-
-
   }
+
 
   onEnter() {
     this.IsInLocation = true;
     this.intervalHandler = setInterval(() => {
-    if(this.IsInLocation == true){
-      hero.currentLocation = "location 1"
-
-   
-         }      
-      }, 1000)
+      if (this.IsInLocation == true) {
+        hero.currentLocation = "location 1"
+      }
+    }, 1000)
   }
 
 
-  OnLeave(){
+  OnLeave() {
     this.IsInLocation = false;
-   
   }
-  
+
   draw() {
     background(0, 206, 209);
     this.objects.forEach(obj => obj.draw());
     this.surfaces.forEach((surface) => surface.draw());
     hero.draw();
-
-
   }
 
   update(dx: Vector2d): number {
+    const map = createMapCanvas(this.locationHeight,this.locationWidth);
+    const locationMap = createLocationMap(this.surfaces, map, SURFACE_SYMBOL);
+    prettyPrintMap(locationMap);
     if (hero.traveledDistance < 1 && keyIsDown(LEFT_ARROW)) {
       return 0;
 
@@ -73,7 +77,7 @@ export class Location1 {
 
     let locationSwitch = 0; // -1 0 1
 
-    if (hero.traveledDistance > 500) {
+    if (hero.traveledDistance > this.locationWidth) {
       locationSwitch = 1;
     }
 
@@ -82,4 +86,6 @@ export class Location1 {
 
 
 
-}
+
+
+

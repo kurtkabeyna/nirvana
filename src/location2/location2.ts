@@ -7,14 +7,17 @@ import { Coins } from "./coins";
 import { Hero } from "hero";
 import { Ground } from "ground";
 import { Surface } from "surface";
-import { Location1 } from "location1/location1";
+import { Location1} from "location1/location1";
 import { Box } from "../location2/box"
 import { Enemy } from "../enemies/enemy";
 import { Bullet } from "../enemies/bullet";
 import { canvasHeight, canvasWidth } from "consts";
+import { HERO_SYMBOL, MAP_CELL_HEIGHT_PX, MAP_CELL_WIDTH_PX, PLATFORM_SYMBOL } from "../consts";
+import { isObjectInCell, prettyPrintMap, createMapCanvas, createLocationMap } from "../utils/mapUtils";
 
 export class Location2 {
   width: number;
+ 
   restart() {
     this.x = this.initialX;
     this.y = this.initialY;
@@ -26,17 +29,21 @@ export class Location2 {
   objects: Coins[];
   boxes: Box[];
   enemies: Enemy[];
+  platforms: Platform[];
   private intervalHandler: number;
   private IsInLocation: boolean;
   private ScoreString: string = "Score = ";
   private Score = 0;
+  private readonly locationWidth: number = 1300;
+  private readonly locationHeight: number = 500;
+
   
 
-  private map = [
-    [' ', ' ', ' '],
-    [' ', 'P', ' '],
-    [' ', 'X', ' ']
-  ]
+  // private map = [
+  //   [' ', ' ', ' '],
+  //   [' ', 'P', ' '],
+  //   [' ', 'X', ' ']
+  // ]
 
 
   onEnter() {
@@ -62,59 +69,61 @@ export class Location2 {
   }
   ColisionWithEnemy(enemy: Enemy, hero: Hero) {
 
-    return hero.x < enemy.x && hero.y == enemy.y - 20;
+    return hero.x < enemy.x + 30 
+    && hero.y == enemy.y - 20;
 
 
   }
 
-   private createFromMap(x, y) {
-    const platforms = []
+  //  private createFromMap(x, y) {
+  //   const platforms = []
 
-    const cellDim = 10;
-    const map = [];
-    const cellWidth = 10;
-    for(let i = 0; i * cellWidth < canvasWidth; ++i) {
-       const row = []
+  //   const cellDim = 10;
+  //   const map = [];
+  //   const cellWidth = 10;
+  //   for(let i = 0; i * cellWidth < canvasWidth; ++i) {
+  //      const row = []
     
-       for(let j = 0; j * cellWidth < canvasHeight; ++i) {
-          row.push(' ')
-       }
-       map.push(row)
-    }
-    this.map.forEach((row, i) => {
-      row.forEach((cell, j) => {
-        if(cell == 'X')
-        platforms.push(new Platform(x + cellDim * i, y + cellDim * j, cellDim,cellDim))
-      })
-    })    
-    
-    // [
-    //   new Platform(this.x + 500, this.y, 1150, 12.59),
-    //   new Platform(this.x + 500, this.y, 12.59, 400),
-    //   new Platform(this.x + 887, this.y + 90, 12.59, 162),
-    //   new Platform(this.x + 500, this.y + 90, 90, 12.59),
-    //   new Platform(this.x + 575, this.y + 176, 150, 12.59),
-    //   new Platform(this.x + 575, this.y + 176, 12.59, 70),
-    //   new Platform(this.x + 655, this.y + 246, 12.59, 70),
-    //   new Platform(this.x + 800, this.y + 176, 12.59, 70),
-    //   new Platform(this.x + 800, this.y + 90, 90, 12.59,"target2"),
-    //   new Platform(this.x + 800, this.y + 238, 90, 12.59),
-    //   new Platform(this.x + 987, this.y + 90, 12.59, 162),
-    //   new Platform(this.x + 1708.42, this.y, 12.59, 400),
-    //   new Platform(this.x + 1518.42, this.y + 90, 190, 12.59,"target"),
-    //   new Platform(this.x + 990, this.y + 90, 190, 12.59),
-    //   new Platform(this.x + 1258.42, this.y + 160, 190, 12.59),
-    //   new Platform(this.x + 1458.42, this.y + 230, 190, 12.59),
-    //   new Platform(this.x + 1058.42, this.y + 230, 190, 12.59),
-    //   ]
-    return platforms;
-  }
+  //      for(let j = 0; j * cellWidth < canvasHeight; ++i) {
+  //         row.push(' ')
+  //      }
+  //      map.push(row)
+  //   }
+  //   this.map.forEach((row, i) => {
+  //     row.forEach((cell, j) => {
+  //       if(cell == 'X')
+  //       platforms.push(new Platform(x + cellDim * i, y + cellDim * j, cellDim,cellDim))
+  //     })
+  //   })    
+
+  //   return platforms;
+  // }
 
   constructor(public x, public y) {
 
     this.initialX = this.x;
     this.initialY = this.y;
-    this.surfaces = this.createFromMap(x, y)
+    // this.surfaces = this.createFromMap(x, y)
+    this.platforms =
+    [
+      new Platform(this.x + 500, this.y, 1150, 12.59),
+      new Platform(this.x + 500, this.y, 12.59, 400),
+      new Platform(this.x + 887, this.y + 90, 12.59, 162),
+      new Platform(this.x + 500, this.y + 90, 90, 12.59),
+      new Platform(this.x + 575, this.y + 176, 150, 12.59),
+      new Platform(this.x + 575, this.y + 176, 12.59, 70),
+      new Platform(this.x + 655, this.y + 246, 12.59, 70),
+      new Platform(this.x + 800, this.y + 176, 12.59, 70),
+      new Platform(this.x + 800, this.y + 90, 90, 12.59,"target2"),
+      new Platform(this.x + 800, this.y + 238, 90, 12.59),
+      new Platform(this.x + 987, this.y + 90, 12.59, 162),
+      new Platform(this.x + 1708.42, this.y, 12.59, 400),
+      new Platform(this.x + 1518.42, this.y + 90, 190, 12.59,"target"),
+      new Platform(this.x + 990, this.y + 90, 190, 12.59),
+      new Platform(this.x + 1258.42, this.y + 160, 190, 12.59),
+      new Platform(this.x + 1458.42, this.y + 230, 190, 12.59),
+      new Platform(this.x + 1058.42, this.y + 230, 190, 12.59),
+      ]
     this.objects = [
       new Coins(this.x + 550, this.y + 50, 50),
       new Coins(this.x + 850, this.y + 65, 50),
@@ -143,12 +152,14 @@ export class Location2 {
 
 
   update(heroMovement: Vector2d) {
-
+  
     const dx = hero.calculateSpeed(this.surfaces);
     this.x = this.x - heroMovement.x;
     this.y = this.y - heroMovement.y;
     this.surfaces.forEach(surfaces => surfaces.update(dx))
-
+    const map = this.createMapCanvas(this.locationHeight,this.locationWidth);
+    const locationMap = this.createLocationMap(this.platforms,map,PLATFORM_SYMBOL);
+    prettyPrintMap(locationMap);
     this.objects = this.objects.filter(object => {
 
 
@@ -166,11 +177,9 @@ export class Location2 {
       
     }
     )
-
-
 return 0;
   }
-
+  
   draw() {
 
     background(0, 209, 182);
@@ -182,9 +191,4 @@ return 0;
     this.boxes.forEach(box => box.draw())
 
   }
-
-}
-
-
-
-
+  
