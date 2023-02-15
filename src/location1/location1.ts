@@ -13,6 +13,7 @@ import { HERO_SYMBOL, MAP_CELL_HEIGHT_PX, MAP_CELL_WIDTH_PX, SURFACE_SYMBOL } fr
 import { isObjectInCell, prettyPrintMap, createMapCanvas, createLocationMap } from "../utils/mapUtils";
 import { Surface } from "../surface";
 import { Platform } from "location2/platform";
+import { updatePosition } from "utils/update";
 
 
 export class Location1 {
@@ -80,7 +81,7 @@ export class Location1 {
     if (hero.traveledDistance > this.locationWidth) {
       locationSwitch = 1;
     }
-
+updatePosition(this, dx);
     return locationSwitch;
   }
 

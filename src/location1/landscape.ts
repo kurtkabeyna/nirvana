@@ -1,3 +1,4 @@
+import { updatePosition } from "utils/update";
 import { Drawable } from "../interfaces/drawable";
 import { Movable } from "../interfaces/movable";
 import { Surface } from "../surface";
@@ -17,7 +18,6 @@ export class Landscape implements Surface, Movable, Drawable {
     rect(this.x, this.y, this.width, this.height);
   }
   update(heroMovement: Vector2d) {
-    this.x = this.x - heroMovement.x;
-    this.y = this.y - heroMovement.y;
+    updatePosition(this, heroMovement);
   }
 }

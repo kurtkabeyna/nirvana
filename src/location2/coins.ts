@@ -1,3 +1,4 @@
+import { updatePosition } from "utils/update";
 import { Drawable } from "../interfaces/drawable";
 import { Vector2d } from "../vector2d";
 
@@ -5,8 +6,7 @@ import { Vector2d } from "../vector2d";
 export class Coins implements Drawable {
    
     update(heroMovement: Vector2d) {
-        this.x = this.x - heroMovement.x;
-        this.y = this.y - heroMovement.y;
+        updatePosition(this, heroMovement);
 
 
     }

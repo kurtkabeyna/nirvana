@@ -1,3 +1,4 @@
+import { updatePosition } from "utils/update";
 import { Vector2d } from "../vector2d";
 
 export class House {
@@ -15,8 +16,7 @@ export class House {
     this.initialY = this.y;
   }
   update(heroMovement: Vector2d) {
-    this.x = this.x - heroMovement.x;
-    this.y = this.y - heroMovement.y;
+    updatePosition(this, heroMovement);
   }
 
   draw() {

@@ -2,6 +2,7 @@ import { Surface } from "./surface";
 import { Movable } from "./interfaces/movable";
 import { Drawable } from "./interfaces/drawable";
 import { Vector2d } from "./vector2d";
+import { updatePosition } from "utils/update";
 
 export class Ground implements Surface, Movable, Drawable {
   initialX: number;
@@ -19,8 +20,7 @@ export class Ground implements Surface, Movable, Drawable {
     rect(this.x, this.y, this.width, this.height);
   }
   update(heroMovement: Vector2d) {
-    this.x = this.x - heroMovement.x;
-    this.y = this.y - heroMovement.y;
+    updatePosition(this, heroMovement);
   }
 }
 

@@ -1,3 +1,4 @@
+import { updatePosition } from "utils/update";
 import { Surface } from "../surface";
 import { Vector2d } from "../vector2d";
 
@@ -5,8 +6,7 @@ import { Vector2d } from "../vector2d";
 export class Platform implements Surface {
     
     update(heroMovement: Vector2d) {
-        this.x = this.x - heroMovement.x;
-        this.y = this.y - heroMovement.y;
+        updatePosition(this, heroMovement);
         if(this.name){
            
         }

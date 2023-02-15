@@ -3,6 +3,7 @@ import { canvasHeight, canvasWidth } from "../consts";
 import { Raindrop } from "../raindrop";
 import { Movable } from "../interfaces/movable";
 import { Drawable } from "../interfaces/drawable";
+import { updatePosition } from "utils/update";
 
 export class Cloud implements Movable, Drawable {
   initialX: number;
@@ -63,8 +64,7 @@ export class Cloud implements Movable, Drawable {
   }
 
   update(heroMovement: Vector2d) {
-    this.x = this.x - heroMovement.x;
-    this.y = this.y - heroMovement.y;
+    updatePosition(this, heroMovement);
     return this;
   }
 }

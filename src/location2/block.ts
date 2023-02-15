@@ -1,5 +1,6 @@
 import { Drawable  } from "interfaces/drawable";
 import { Movable } from "interfaces/movable";
+import { updatePosition } from "utils/update";
 import { Vector2d } from "../vector2d";
 export class Block {
     
@@ -18,8 +19,6 @@ export class Block {
      }
 
     update(heroMovement:Vector2d){
-        this.x = this.x -  heroMovement.x;
-        this.y = this.y - heroMovement.y;
-    }
+        updatePosition(this, heroMovement);
 
 }

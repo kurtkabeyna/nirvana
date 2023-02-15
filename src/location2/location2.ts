@@ -13,7 +13,8 @@ import { Enemy } from "../enemies/enemy";
 import { Bullet } from "../enemies/bullet";
 import { canvasHeight, canvasWidth } from "consts";
 import { HERO_SYMBOL, MAP_CELL_HEIGHT_PX, MAP_CELL_WIDTH_PX, PLATFORM_SYMBOL } from "../consts";
-import { isObjectInCell, prettyPrintMap, createMapCanvas, createLocationMap } from "../utils/mapUtils";
+import { isObjectInCell, prettyPrintMap,createMapCanvas, createLocationMap} from "../utils/mapUtils";
+import { updatePosition } from "utils/update";
 
 export class Location2 {
   width: number;
@@ -152,14 +153,13 @@ export class Location2 {
 
 
   update(heroMovement: Vector2d) {
-  
-    const dx = hero.calculateSpeed(this.surfaces);
-    this.x = this.x - heroMovement.x;
-    this.y = this.y - heroMovement.y;
-    this.surfaces.forEach(surfaces => surfaces.update(dx))
-    const map = this.createMapCanvas(this.locationHeight,this.locationWidth);
-    const locationMap = this.createLocationMap(this.platforms,map,PLATFORM_SYMBOL);
+    const map = createMapCanvas(this.locationHeight,this.locationWidth);
+    const locationMap = createLocationMap(this.platforms,map,PLATFORM_SYMBOL);
     prettyPrintMap(locationMap);
+    const dx = hero.calculateSpeed(this.surfaces);
+   updatePosition(this, heroMovement)
+    this.surfaces.forEach(surfaces => surfaces.update(dx))
+   
     this.objects = this.objects.filter(object => {
 
 
