@@ -1,6 +1,8 @@
-import { Vector2d } from "vector2d";
+import { Vector2d } from "../vector2d";
 import { Drawable } from "../interfaces/drawable";
 import { Movable } from "../interfaces/movable";
+import { updatePosition } from "../utils/update";
+import { VISITED_SYMBOL } from "consts";
 export class Enemy implements Drawable, Movable{
     constructor(public x : number , public y : number , public patrolArea : number){}
     draw(): void {
@@ -60,8 +62,7 @@ export class Enemy implements Drawable, Movable{
      
     }
     update(heroMovement:Vector2d){
-        this.x = this.x - heroMovement.x;
-        this.y = this.y - heroMovement.y;
+      updatePosition(this, heroMovement);
         this.x = this.x + this.direction;
         this.StepsCount  = this.StepsCount + this.direction;
         if(this.StepsCount == this.patrolArea){
@@ -71,6 +72,29 @@ export class Enemy implements Drawable, Movable{
             this.direction = 1;
          }
     }
+  
+ 
     private StepsCount : number = 0;
     private direction : number = 1;
+
+    FindPath(x,y,dx,dy,lmap : string[][]){
+       const queue = [[x,y]];
+       lmap = lmap.map(mapRow => [...mapRow])
+       lmap[x][y] = VISITED_SYMBOL;
+       while(queue.length == 0){
+          let FirstElement = queue.shift();
+          lmap[FirstElement[0]][FirstElement[1]] = VISITED_SYMBOL;
+          const shifts = [[1,0], [0,1], [-1,0], [0,-1]]
+          shifts.forEach(([sx,sy]) => {
+              let newX = FirstElement[0] + sx;
+              let  newY = FirstElement[1] + sy;
+              if(lmap[newX][newY] !== VISITED_SYMBOL){
+                queue.push([newX,newY]);
+              }
+             
+
+})
+          
+       }
+    }
 }

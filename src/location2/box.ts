@@ -1,5 +1,6 @@
 import { Drawable  } from "interfaces/drawable";
 import { Movable } from "interfaces/movable";
+import { updatePosition } from "utils/update";
 import { Vector2d } from "../vector2d";
 export class Box implements Drawable, Movable {
     
@@ -16,10 +17,9 @@ export class Box implements Drawable, Movable {
     fill(169,169,169);//grey
     rect(this.x + 22, this.y + 14 , 9 , 16)
      }
-
-    update(heroMovement:Vector2d){
-        this.x = this.x -  heroMovement.x;
-        this.y = this.y - heroMovement.y;
-    }
+    update(heroMovement : Vector2d)
+  {
+    updatePosition(this, heroMovement);
+  }
 
 }
