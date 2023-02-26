@@ -6,19 +6,17 @@ import { Drawable } from "../interfaces/drawable";
 import { Coins } from "./coins";
 import { Hero } from "hero";
 import { Ground } from "ground";
-import { Surface } from "surface";
-import { Location1} from "location1/location1";
+import { Location1 } from "location1/location1";
 import { Box } from "../location2/box"
 import { Enemy } from "../enemies/enemy";
 import { Bullet } from "../enemies/bullet";
-import { canvasHeight, canvasWidth } from "consts";
-import { HERO_SYMBOL, MAP_CELL_HEIGHT_PX, MAP_CELL_WIDTH_PX, PLATFORM_SYMBOL } from "../consts";
-import { isObjectInCell, prettyPrintMap,createMapCanvas, createLocationMap} from "../utils/mapUtils";
-import { updatePosition } from "utils/update";
+import { HERO_SYMBOL } from "../consts";
+import { isObjectInCell, prettyPrintMap, createMapCanvas, createLocationMap } from "../utils/mapUtils";
+import { updatePosition } from "../utils/update";
 
 export class Location2 {
   width: number;
- 
+
   restart() {
     this.x = this.initialX;
     this.y = this.initialY;
@@ -30,7 +28,6 @@ export class Location2 {
   objects: Coins[];
   boxes: Box[];
   enemies: Enemy[];
-  platforms: Platform[];
   private intervalHandler: number;
   private IsInLocation: boolean;
   private ScoreString: string = "Score = ";
@@ -38,7 +35,7 @@ export class Location2 {
   private readonly locationWidth: number = 1300;
   private readonly locationHeight: number = 500;
 
-  
+
 
   // private map = [
   //   [' ', ' ', ' '],
@@ -68,62 +65,37 @@ export class Location2 {
       && hero.y < object.y + object.radius && hero.y > object.y - object.radius;
 
   }
-  ColisionWithEnemy(enemy: Enemy, hero: Hero) {
+  colisionWithEnemy(enemy: Enemy, hero: Hero) {
 
-    return hero.x < enemy.x + 30 
-    && hero.y == enemy.y - 20;
+    return hero.x < enemy.x + 30
+      && hero.y == enemy.y - 20;
 
 
   }
-
-  //  private createFromMap(x, y) {
-  //   const platforms = []
-
-  //   const cellDim = 10;
-  //   const map = [];
-  //   const cellWidth = 10;
-  //   for(let i = 0; i * cellWidth < canvasWidth; ++i) {
-  //      const row = []
-    
-  //      for(let j = 0; j * cellWidth < canvasHeight; ++i) {
-  //         row.push(' ')
-  //      }
-  //      map.push(row)
-  //   }
-  //   this.map.forEach((row, i) => {
-  //     row.forEach((cell, j) => {
-  //       if(cell == 'X')
-  //       platforms.push(new Platform(x + cellDim * i, y + cellDim * j, cellDim,cellDim))
-  //     })
-  //   })    
-
-  //   return platforms;
-  // }
 
   constructor(public x, public y) {
 
     this.initialX = this.x;
     this.initialY = this.y;
-    // this.surfaces = this.createFromMap(x, y)
-    this.platforms =
-    [
-      new Platform(this.x + 500, this.y, 1150, 12.59),
-      new Platform(this.x + 500, this.y, 12.59, 400),
-      new Platform(this.x + 887, this.y + 90, 12.59, 162),
-      new Platform(this.x + 500, this.y + 90, 90, 12.59),
-      new Platform(this.x + 575, this.y + 176, 150, 12.59),
-      new Platform(this.x + 575, this.y + 176, 12.59, 70),
-      new Platform(this.x + 655, this.y + 246, 12.59, 70),
-      new Platform(this.x + 800, this.y + 176, 12.59, 70),
-      new Platform(this.x + 800, this.y + 90, 90, 12.59,"target2"),
-      new Platform(this.x + 800, this.y + 238, 90, 12.59),
-      new Platform(this.x + 987, this.y + 90, 12.59, 162),
-      new Platform(this.x + 1708.42, this.y, 12.59, 400),
-      new Platform(this.x + 1518.42, this.y + 90, 190, 12.59,"target"),
-      new Platform(this.x + 990, this.y + 90, 190, 12.59),
-      new Platform(this.x + 1258.42, this.y + 160, 190, 12.59),
-      new Platform(this.x + 1458.42, this.y + 230, 190, 12.59),
-      new Platform(this.x + 1058.42, this.y + 230, 190, 12.59),
+    this.surfaces =
+      [
+        new Platform(this.x + 500, this.y, 1150, 12.59),
+        new Platform(this.x + 500, this.y, 12.59, 400),
+        new Platform(this.x + 887, this.y + 90, 12.59, 162),
+        new Platform(this.x + 500, this.y + 90, 90, 12.59),
+        new Platform(this.x + 575, this.y + 176, 150, 12.59),
+        new Platform(this.x + 575, this.y + 176, 12.59, 70),
+        new Platform(this.x + 655, this.y + 246, 12.59, 70),
+        new Platform(this.x + 800, this.y + 176, 12.59, 70),
+        new Platform(this.x + 800, this.y + 90, 90, 12.59, "target2"),
+        new Platform(this.x + 800, this.y + 238, 90, 12.59),
+        new Platform(this.x + 987, this.y + 90, 12.59, 162),
+        new Platform(this.x + 1708.42, this.y, 12.59, 400),
+        new Platform(this.x + 1518.42, this.y + 90, 190, 12.59, "target"),
+        new Platform(this.x + 990, this.y + 90, 190, 12.59),
+        new Platform(this.x + 1258.42, this.y + 160, 190, 12.59),
+        new Platform(this.x + 1458.42, this.y + 230, 190, 12.59),
+        new Platform(this.x + 1058.42, this.y + 230, 190, 12.59),
       ]
     this.objects = [
       new Coins(this.x + 550, this.y + 50, 50),
@@ -141,28 +113,22 @@ export class Location2 {
     this.boxes = [
       new Box(this.x + 829, this.y + 192),
       new Box(this.x + 1150, this.y + 65),
-      // new Box(this.x + 695 ,this.y + 293),
       new Box(this.x + 1610, this.y + 180),
-      // new Box(this.x + 850 ,this.y + 65),
-      // new Box(250,270),
     ]
     this.enemies = [
-      new Enemy(this.x + 650, this.y + 176, 40),
+      new Enemy(this.x + 650, this.y + 176, 40, 40, 40),
     ]
   }
 
 
   update(heroMovement: Vector2d) {
-    const map = createMapCanvas(this.locationHeight,this.locationWidth);
-    const locationMap = createLocationMap(this.platforms,map,PLATFORM_SYMBOL);
-    prettyPrintMap(locationMap);
+    const map = createMapCanvas(this.locationHeight, this.locationWidth);
+    const minimap = createLocationMap([...this.surfaces, ...this.enemies, hero], map);
+    prettyPrintMap(minimap);
     const dx = hero.calculateSpeed(this.surfaces);
-   updatePosition(this, heroMovement)
+    updatePosition(this, heroMovement)
     this.surfaces.forEach(surfaces => surfaces.update(dx))
-   
     this.objects = this.objects.filter(object => {
-
-
       if (this.IsCoinCollision(object, hero)) { return this.Score += 1, false; }
 
       else
@@ -171,15 +137,15 @@ export class Location2 {
     this.objects.forEach(objects => objects.update(dx))
     this.boxes.forEach(box => box.update(heroMovement))
     this.enemies.forEach(enemy => {
+      const path = enemy.findPath(HERO_SYMBOL, minimap)
+      console.log("Path: ", path);
       enemy.update(heroMovement)
-
-      if (this.ColisionWithEnemy(enemy, hero)) { location.reload(); }
-      
+      if (this.colisionWithEnemy(enemy, hero)) { location.reload(); }
     }
     )
-return 0;
+    return 0;
   }
-  
+
   draw() {
 
     background(0, 209, 182);
@@ -189,6 +155,5 @@ return 0;
     this.objects.forEach(objects => objects.draw())
     this.enemies.forEach(enemies => enemies.draw())
     this.boxes.forEach(box => box.draw())
-
   }
-  
+}

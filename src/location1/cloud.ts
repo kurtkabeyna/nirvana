@@ -3,7 +3,7 @@ import { canvasHeight, canvasWidth } from "../consts";
 import { Raindrop } from "../raindrop";
 import { Movable } from "../interfaces/movable";
 import { Drawable } from "../interfaces/drawable";
-import { updatePosition } from "utils/update";
+import { updatePosition } from "../utils/update";
 
 export class Cloud implements Movable, Drawable {
   initialX: number;

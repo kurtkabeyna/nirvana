@@ -2,12 +2,13 @@ import { Enemy } from "enemies/enemy";
 import { Coins } from "location2/coins";
 import { hero } from "sketch";
 import { Ground } from "./ground";
-import { Surface } from "./surface";
+import { GameObject } from "./gameObject";
 import { Vector2d } from "./vector2d";
+import { HERO_SYMBOL } from "./consts";
 
 
 
-export class Hero {
+export class Hero implements GameObject {
   public currentLocation: string = "";
 
   restart(surfaces: Ground[]) {
@@ -25,8 +26,13 @@ export class Hero {
     this.direction = 1;
   }
 
+  width: number = 50;
+  height: number = 50;
+  minimapSymbol: string = HERO_SYMBOL;
+  minimapPosition: [number, number];
 
-  isStanding(surfaces: Surface[]) {
+
+  isStanding(surfaces: GameObject[]) {
 
     for (let i = 0; i < surfaces.length; i++) {
       const surface = surfaces[i];
@@ -95,36 +101,36 @@ export class Hero {
     fill("white");
     circle(this.x - 10, this.y - 10, 5);
     circle(this.x + 10, this.y - 10, 5);
-    
-    
-    
- 
-   Rotate_and_draw(this.x+6.2,this.y-77,PI/9, ()=>{
-    fill(114, 51, 181);
-    rect(40,15, 7 , 50,15);
-   } );
-   Rotate_and_draw(this.x,this.y-48,PI/9, ()=>{
-    fill(139, 140, 129);
-    rect(36, 32, 7 , 25,15);
-   } );
-   Rotate_and_draw(this.x,this.y-48,PI/9, ()=>{
-    fill("white");
-    rect(36, 32, 7 , 7,15);
-   } );
-   Rotate_and_draw(this.x+6.2,this.y-77,PI/9, ()=>{
-    fill(168, 110, 230);
-    rect(41,17, 5 , 42,15);
-   } );
-   fill("blue");
-   circle(74.66,279,4);
+
+
+
+
+    Rotate_and_draw(this.x + 6.2, this.y - 77, PI / 9, () => {
+      fill(114, 51, 181);
+      rect(40, 15, 7, 50, 15);
+    });
+    Rotate_and_draw(this.x, this.y - 48, PI / 9, () => {
+      fill(139, 140, 129);
+      rect(36, 32, 7, 25, 15);
+    });
+    Rotate_and_draw(this.x, this.y - 48, PI / 9, () => {
+      fill("white");
+      rect(36, 32, 7, 7, 15);
+    });
+    Rotate_and_draw(this.x + 6.2, this.y - 77, PI / 9, () => {
+      fill(168, 110, 230);
+      rect(41, 17, 5, 42, 15);
+    });
+    fill("blue");
+    circle(74.66, 279, 4);
 
   }
 
 }
 
 
-function Rotate_and_draw(x,y,angle,drawIt){
-  translate(x,y);
+function Rotate_and_draw(x, y, angle, drawIt) {
+  translate(x, y);
   rotate(angle);
   drawIt();
   rotate(-angle);

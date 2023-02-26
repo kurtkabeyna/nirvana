@@ -9,16 +9,13 @@ import { Log } from "./log";
 import { Cloud } from "./cloud";
 import { Landscape } from "./landscape";
 import { Circle } from "./Circle";
-import { HERO_SYMBOL, MAP_CELL_HEIGHT_PX, MAP_CELL_WIDTH_PX, SURFACE_SYMBOL } from "../consts";
-import { isObjectInCell, prettyPrintMap, createMapCanvas, createLocationMap } from "../utils/mapUtils";
-import { Surface } from "../surface";
-import { Platform } from "location2/platform";
-import { updatePosition } from "utils/update";
+import { prettyPrintMap, createMapCanvas, createLocationMap } from "../utils/mapUtils";
+import { updatePosition } from "../utils/update";
 
 
 export class Location1 {
   surfaces: Ground[] = [];
-  map = [][];
+  map = [[]];
   objects: (Movable & Drawable)[]
   private intervalHandler: number = null;
   private IsInLocation: boolean;
@@ -66,9 +63,8 @@ export class Location1 {
   }
 
   update(dx: Vector2d): number {
-    const map = createMapCanvas(this.locationHeight,this.locationWidth);
-    const locationMap = createLocationMap(this.surfaces, map, SURFACE_SYMBOL);
-    prettyPrintMap(locationMap);
+    const map = createMapCanvas(this.locationHeight, this.locationWidth);
+    const locationMap = createLocationMap(this.surfaces, map);
     if (hero.traveledDistance < 1 && keyIsDown(LEFT_ARROW)) {
       return 0;
 
@@ -81,12 +77,8 @@ export class Location1 {
     if (hero.traveledDistance > this.locationWidth) {
       locationSwitch = 1;
     }
-updatePosition(this, dx);
+    updatePosition(this, dx);
     return locationSwitch;
   }
 
-
-
-
-
-
+}

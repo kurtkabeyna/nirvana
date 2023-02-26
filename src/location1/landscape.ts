@@ -1,10 +1,11 @@
-import { updatePosition } from "utils/update";
+import { updatePosition } from "../utils/update";
 import { Drawable } from "../interfaces/drawable";
 import { Movable } from "../interfaces/movable";
-import { Surface } from "../surface";
+import { GameObject } from "../gameObject";
 import { Vector2d } from "../vector2d";
+import { OBSTACLE_SYMBOL } from "../consts";
 
-export class Landscape implements Surface, Movable, Drawable {
+export class Landscape implements GameObject, Movable, Drawable {
   initialX: number;
   initialY: number;
   width = 400;
@@ -13,6 +14,8 @@ export class Landscape implements Surface, Movable, Drawable {
     this.initialX = this.x;
     this.initialY = this.y;
   }
+  minimapSymbol: string = OBSTACLE_SYMBOL;
+  minimapPosition: [number, number];
   draw() {
     fill("#5EE1B1");
     rect(this.x, this.y, this.width, this.height);

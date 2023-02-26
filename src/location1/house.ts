@@ -1,4 +1,4 @@
-import { updatePosition } from "utils/update";
+import { updatePosition } from "../utils/update";
 import { Vector2d } from "../vector2d";
 
 export class House {
