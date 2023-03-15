@@ -6,3 +6,4 @@ export const HERO_SYMBOL = 'H';
 export const OBSTACLE_SYMBOL = 'O';
 export const VISITED_SYMBOL = 'V';
 export const ENEMY_SYMBOL = 'E';
+export const PATH_SYMBOL = 'P';

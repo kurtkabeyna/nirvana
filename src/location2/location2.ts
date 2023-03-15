@@ -10,7 +10,7 @@ import { Location1 } from "location1/location1";
 import { Box } from "../location2/box"
 import { Enemy } from "../enemies/enemy";
 import { Bullet } from "../enemies/bullet";
-import { HERO_SYMBOL } from "../consts";
+import { HERO_SYMBOL,PATH_SYMBOL } from "../consts";
 import { isObjectInCell, prettyPrintMap, createMapCanvas, createLocationMap } from "../utils/mapUtils";
 import { updatePosition } from "../utils/update";
 
@@ -124,7 +124,8 @@ export class Location2 {
   update(heroMovement: Vector2d) {
     const map = createMapCanvas(this.locationHeight, this.locationWidth);
     const minimap = createLocationMap([...this.surfaces, ...this.enemies, hero], map);
-    prettyPrintMap(minimap);
+    
+    
     const dx = hero.calculateSpeed(this.surfaces);
     updatePosition(this, heroMovement)
     this.surfaces.forEach(surfaces => surfaces.update(dx))
@@ -138,7 +139,15 @@ export class Location2 {
     this.boxes.forEach(box => box.update(heroMovement))
     this.enemies.forEach(enemy => {
       const path = enemy.findPath(HERO_SYMBOL, minimap)
-      console.log("Path: ", path);
+      function prettyPrintPath(minimap,path,PATH_SYMBOL){
+        minimap = minimap.map(mapRow => [...mapRow]); 
+        path.forEach(([x,y]) => 
+        minimap[x][y] = PATH_SYMBOL );
+        prettyPrintMap(minimap);
+        
+      }
+      prettyPrintPath(minimap,path,PATH_SYMBOL);
+      // console.log("Path: ", path);
       enemy.update(heroMovement)
       if (this.colisionWithEnemy(enemy, hero)) { location.reload(); }
     }
