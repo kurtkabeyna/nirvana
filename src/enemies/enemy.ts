@@ -6,6 +6,7 @@ import { ENEMY_SYMBOL, OBSTACLE_SYMBOL, VISITED_SYMBOL } from "../consts";
 import { GameObject } from "../gameObject";
 import { prettyPrintMap } from "../utils/mapUtils";
 
+
 type Path = [number, number][]
 
 export class Enemy implements Drawable, Movable, GameObject {
@@ -76,6 +77,10 @@ export class Enemy implements Drawable, Movable, GameObject {
 
 
 
+  
+
+
+
   }
   update(heroMovement: Vector2d) {
     updatePosition(this, heroMovement);
@@ -92,9 +97,27 @@ export class Enemy implements Drawable, Movable, GameObject {
   private stepsCount: number = 0;
   private direction: number = 1;
 
-  getNodeNeighbours(x: number, y: number) {
-    const shifts = [[1, 0], [0, 1], [-1, 0], [0, -1]]
-    return shifts.map(([sx, sy]) => [x + sx, y + sy]);
+  getNodeNeighbours(x: number, y: number,minimap) {
+    const neighbours: [number, number][] = [];
+
+    for (let i = -4; i <= 4; i++) {
+      for (let j = -10; j <= 10; j++) {
+       
+        if ((i == 0 || j == 0) && i != j) {
+          const neighbourX = x + j;
+          const neighbourY = y + i;
+          if (this.isPlatform(neighbourX, neighbourY,minimap)) {
+            neighbours.push([neighbourX, neighbourY]);
+          }
+        }
+      }
+    }
+    return neighbours;
+  }
+
+  private isPlatform(x: number, y: number, minimap) {
+    
+    return minimap[x] && minimap[x][y] == OBSTACLE_SYMBOL;
   }
 
   findPath(targetSymbol: string, minimap: string[][]) {
@@ -110,20 +133,14 @@ export class Enemy implements Drawable, Movable, GameObject {
         ? subjectPath[0]
         : subjectPath[subjectPath.length - 1];
 
-      const subjectRow = minimap[subjectX];
-      if (!subjectRow) {
-        // if row is undefined it means, that we are outside of the map
-        continue;
-      }
-      if (subjectRow[subjectY] == targetSymbol) {
+      if (minimap[subjectX][subjectY] == targetSymbol) {
         return subjectPath
       }
 
-      this.getNodeNeighbours(subjectX, subjectY).forEach(([neighbourX, neighbourY]) => {
-        if (minimap[neighbourX] == undefined
-          || minimap[neighbourX][neighbourY] == VISITED_SYMBOL
-          || minimap[neighbourX][neighbourY] == OBSTACLE_SYMBOL
-          || minimap[neighbourX][neighbourY] == ENEMY_SYMBOL) {
+      this.getNodeNeighbours(subjectX, subjectY, minimap).forEach(([neighbourX, neighbourY]) => {
+        if (minimap[neighbourX][neighbourY] == VISITED_SYMBOL
+          || minimap[neighbourX][neighbourY] == ENEMY_SYMBOL
+          || this.isPlatform(neighbourX, neighbourY, minimap)) {
           return;
         }
         if (minimap[neighbourX][neighbourY] != targetSymbol) {
@@ -133,5 +150,7 @@ export class Enemy implements Drawable, Movable, GameObject {
         queue.push(pathToExplore)
       })
     }
+    return [this.minimapPosition]
   }
 }
+  
